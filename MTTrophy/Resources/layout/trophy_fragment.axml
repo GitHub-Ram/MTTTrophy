@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@android:color/transparent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:id="@+id/ActionLayout"
+        android:layout_width="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/containerImg"
+            android:layout_width="match_parent"
+            android:background="@android:color/transparent"
+            android:layout_height="match_parent">
+        <!--<ImageView
+                android:id="@+id/logoImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/app_name"
+                android:scaleType="matrix" />-->
+        </RelativeLayout>
+        <Button
+            android:id="@+id/buttonFlipcamera"
+            android:layout_width="@dimen/dimen50"
+            android:layout_margin="@dimen/dimen10"
+            android:layout_gravity="top|right"
+            android:background="@mipmap/fliptrouphy"
+            android:layout_height="@dimen/dimen50" />
+        <Button
+            android:id="@+id/buttonGoLobby"
+            android:layout_width="@dimen/dimen40"
+            android:layout_margin="@dimen/dimen10"
+            android:layout_gravity="top|left"
+            android:background="@mipmap/ic_lobby"
+            android:layout_height="@dimen/dimen40" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_marginBottom="@dimen/dimen15"
+            android:gravity="center"
+            android:visibility="visible"
+            android:layout_gravity="bottom">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:layout_centerInParent="true" />
+            <LinearLayout
+                android:id="@+id/linearButton"
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:background="@drawable/trophy_center_selection_circle"
+                android:layout_centerInParent="true"
+                android:clickable="true" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/containerTaken"
+            android:layout_width="match_parent"
+            android:visibility="visible"
+            android:background="@android:color/transparent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/ImageViewtaken"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY" />
+            <LinearLayout
+                android:id="@+id/linearButtons"
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:background="@android:color/transparent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="@dimen/dimen5">
+                <Button
+                    android:id="@+id/buttonSave"
+                    android:layout_width="@dimen/dimen50"
+                    android:layout_margin="@dimen/dimen10"
+                    android:background="@mipmap/savetrophy"
+                    android:layout_height="@dimen/dimen50" />
+                <Button
+                    android:id="@+id/buttonRetake"
+                    android:layout_width="@dimen/dimen50"
+                    android:layout_margin="@dimen/dimen10"
+                    android:background="@mipmap/restart"
+                    android:layout_height="@dimen/dimen50" />
+                <Button
+                    android:id="@+id/buttonBack"
+                    android:layout_width="@dimen/dimen50"
+                    android:layout_margin="@dimen/dimen10"
+                    android:background="@mipmap/exit"
+                    android:layout_height="@dimen/dimen50" />
+            </LinearLayout>
+        </RelativeLayout>
+    </FrameLayout>
+    <LinearLayout
+        android:id="@+id/LLPleaseWait"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="visible"
+        android:clickable="true"
+        android:gravity="center">
+        <ProgressBar
+            android:id="@+id/ProgressBarWait"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateDrawable="@drawable/progressbar_style"
+            style="@android:style/Widget.ProgressBar.Inverse" />
+    </LinearLayout>
+</FrameLayout>

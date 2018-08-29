@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="size">Phone</string>
+  
+  
+  <!--Tourney Strings Starts-->
+
+  <string name="timer">Tournament Start In</string>
+  <string name="TourneyInfo1">
+    The winning from VIP tables become redeemable only after you
+    convert VIP chips back to real cash chips
+  </string>
+
+  <string name="TourneyInfo2">
+    The VIP tables end on the last day of the Quarter. On this day, all the balance
+    VIP chips will be converted back to real cash chips automatically.
+  </string>
+
+
+  <string name="TourneyInfo3">
+    Tax Deduction: In case the VIP chip winnings are more than 10,000,
+    tax shall be deducted when VIP chips are converted back to real cash chips.
+  </string>
+
+
+  <string name="TourneyRule1">
+    Players can register with 30 real chips
+  </string>
+
+  <string name="TourneyRule2">
+    Starting stack 1000, blind increaments time 6 mins and turn time 15 seconds
+  </string>
+
+
+  <string name="TourneyRule3">
+    Late registration allowed for 25 mins
+  </string>
+
+  <string name="TourneyRule4">
+    No rebuys allowed.
+  </string>
+
+  <string name="TourneyRule5">
+    Players will be automatically seated on random tables.
+  </string>
+
+  <string name="TourneyRule6">
+    Table will merge automatically and winners will continue to play.
+  </string>
+
+  <string name="TourneyRule7">
+    Prize: 3 tickets for main event step 2.
+  </string>
+
+  <!--END-->
+  <string name="tootltipInfo">You have insufficient chip balance in your Poker wallet. Please transfer your VIP chips to Poker wallet to enable above option(s).</string>
+
+  <string name="RebuytootltipInfo">You have insufficient chip balance in your Poker wallet. Please transfer your VIP chips to Poker wallet to Rebuy.</string>
+
+  <string name="AddontootltipInfo">You have insufficient chip balance in your Poker wallet. Please transfer your VIP chips to Poker wallet to Addon.</string>
+  <string name="TransferVipChips">
+    <u>Transfer VIP Chips to Poker Wallet </u>
+  </string>
+  <string name="Rs">\u20B9</string>
+  <string name="PokerWallet">Poker Wallet - </string>
+  <string name="VipChips">VIP Chips  - </string>
+  <!-- Start Bad  beat jackpot shared resource string-->
+  <string name="jackpot_popup_header">Bad Beat Jackpot</string>
+  <string name="btnDismiss">
+    <b>CLOSE</b>
+  </string>
+  <string name="winningtext">You won:Rs 14,347.98</string>
+  <string name="announcementText">
+    <b>Queen\'s Bad Beat Jackpot</b> has been won at \nthe table: <b>Chennai Chase #24611855333</b> \n\n Adhish2003 has won:Rs. 54,347.98 \n \u0020\u0020\u0020 Valen has won:Rs. 34347.98
+
+  </string>
+  <!-- End Bad  beat jackpot shared resource string-->
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="size">Seven</string>
+  <string name="tootltipInfo">You have insufficient chip balance in your Poker wallet. Please transfer your VIP chips to Poker wallet to enable above option(s).</string>
+
+  <string name="RebuytootltipInfo">You have insufficient chip balance in your Poker wallet. Please transfer your VIP chips to Poker wallet to Rebuy.</string>
+
+  <string name="AddontootltipInfo">You have insufficient chip balance in your Poker wallet. Please transfer your VIP chips to Poker wallet to Addon.</string>
+  
+  
+  
+  <string name="TransferVipChips">
+    <u>Transfer VIP Chips to Poker Wallet </u>
+  </string>
+  <string name="Rs">\u20B9</string>
+  <string name="PokerWallet">Poker Wallet - </string>
+  <string name="VipChips">VIP Chips  - </string>
+  <!-- Start Bad  beat jackpot shared resource string-->
+  <string name="jackpot_popup_header">Bad Beat Jackpot</string>
+  <string name="btnDismiss">
+    <b>CLOSE</b>
+  </string>
+  <string name="winningtext">You won:Rs 14,347.98</string>
+  <string name="announcementText">
+    <b>Queen\'s Bad Beat Jackpot</b> has been won at \nthe table: <b>Chennai Chase #24611855333</b> \n\n Adhish2003 has won:Rs. 54,347.98 \n \u0020\u0020\u0020 Valen has won:Rs. 34347.98
+
+  </string>
+  <!-- End Bad  beat jackpot shared resource string-->
+</resources>

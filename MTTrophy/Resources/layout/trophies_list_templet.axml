@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:clickable="false"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:layout_height="@dimen/dimen50">
+    <TextView
+        android:id="@+id/trophy_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen15"
+        android:layout_weight="1"
+        android:textSize="@dimen/font20"
+        android:textColor="@android:color/white"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_gravity="left|center_vertical"
+        android:gravity="left|center_vertical"
+        android:text="Beast"
+        android:textStyle="bold" />
+    <ImageView
+        android:id="@+id/camera_button"
+        android:layout_width="@dimen/dimen45"
+        android:layout_height="@dimen/dimen45"
+        android:layout_marginLeft="@dimen/dimen5"
+        android:layout_marginRight="@dimen/dimen50"
+        android:layout_marginTop="@dimen/dimen2"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:background="@mipmap/fliptrouphy" />
+</LinearLayout>

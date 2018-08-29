@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:m="http://schemas.android.com/apk/res/android"
+    m:layout_width="match_parent"
+    m:layout_height="match_parent"
+    m:id="@+id/LLTrouphy"
+    m:clickable="false"
+    m:background="@mipmap/login_bg"
+    m:descendantFocusability="blocksDescendants"
+    m:focusable="false"
+    m:focusableInTouchMode="false"
+    m:orientation="vertical">
+    <FrameLayout
+        m:layout_width="match_parent"
+        m:layout_height="@dimen/dimen30"
+        m:background="#141414"
+        m:paddingLeft="@dimen/dimen10">
+        <TextView
+            m:id="@+id/txtHeaderSettings"
+            m:layout_width="wrap_content"
+            m:layout_height="wrap_content"
+            m:layout_gravity="center_vertical"
+            m:text="MY TROPHIES"
+            m:textAllCaps="true"
+            m:textColor="#FFFFFF"
+            m:textSize="@dimen/font18" />
+    </FrameLayout>
+    <ListView
+        m:id="@+id/ListViewTrophy"
+        m:layout_width="match_parent"
+        m:layout_height="0dp"
+        m:clickable="true"
+        m:layout_weight="1"
+        m:choiceMode="singleChoice"
+        m:divider="@android:color/transparent"
+        m:dividerHeight="0dp"
+        m:drawSelectorOnTop="false"
+        m:minHeight="25px"
+        m:minWidth="25px"
+        m:scrollingCache="@dimen/dimen1"
+        m:visibility="visible" />
+</LinearLayout>

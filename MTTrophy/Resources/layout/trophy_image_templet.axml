@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="@dimen/dimen90"
+    android:gravity="center"
+    android:layout_height="@dimen/dimen90"
+    android:clickable="false"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:id="@+id/circleBackground">
+    <ImageView
+        android:id="@+id/trouphyImage"
+        android:layout_height="@dimen/dimen60"
+        android:layout_width="@dimen/dimen60"
+        android:clickable="false"
+        android:padding="10dp"
+        android:focusable="false"
+        android:background="@drawable/circle_background_trophy_clear"
+        android:focusableInTouchMode="false"
+        android:layout_gravity="center" />
+</LinearLayout>

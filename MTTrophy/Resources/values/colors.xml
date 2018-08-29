@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="game_activity_bg_color2">#c20f38</color>
+  <color name="game_activity_bg_color">#000000</color>
+  <color name="game_activity_text_color">#FFD0D5A7</color>
+  <color name="menu_activity_button_text_color">#FFFFFEFE</color>
+  <color name="normal_player_border">#FFD0D5A7</color>
+  <color name="normal_player_background">#33FFFFFF</color>
+  <color name="normal_player_font">#FFD0D5A7</color>
+  <color name="normal_player_points_font">#FFFFFFFF</color>
+  <color name="dealer_background">#FFFFECE5</color>
+  <color name="dealer_font">#FF000000</color>
+  <color name="dealer_points_font">#FF5D5D5D</color>
+  <color name="small_blind_background">#FF4F3B73</color>
+  <color name="small_blind_font">#FFFFFFFF</color>
+  <color name="small_blind_points_font">#FFA4A4A4</color>
+  <color name="big_blind_background">#FFCBAF43</color>
+  <color name="big_blind_font">#FF000000</color>
+  <color name="big_blind_points_font">#FF5D5D5D</color>
+  <color name="active_player_border">#FFCC69FD</color>
+  <color name="current_bid_font">#FFFF9524</color>
+  <color name="txtwhitecolor">#FFFFFFFF</color>
+
+  <color name="light_background">#ffd9d9d9</color>
+  <color name="drawer_background">#FF111111</color>
+  <color name="drawer_item_text_color">#FFFFFFFF</color>
+  <color name="nav_back">#F5F5F5</color>
+  
+  <color name="default_screen_bg">#eeeeee</color>
+  <color name="rounded_container_bg">#eeeeee</color>
+  <color name="rounded_container_border">#eeeeee</color>
+  <color name="light_gray_header_color">#eeeeee</color>
+  <color name="list_pressed">#434343</color>
+  <color name="fade_accept">#a0e6b2</color>
+  <color name="reject_button">#abacb1</color>
+  <color name="accept_button"> #12c23f</color>
+    <color name="bbjp_you_win_bg">#390202</color>
+</resources>

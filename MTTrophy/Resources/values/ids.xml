@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <item name="infoImageView" type="id"/>
+  <item name="txtTransferChipsParams" type="id"/>
+  <item name="llTransferChips" type="id"/>
+  <item name="rlInfoRegisterContentHolder" type="id"/>
+  <item name="rlInfoPopUpContent" type="id"/>
+  <item name="InfoPopUpRightContentHolder" type="id"/>
+  <item name="opentablearrow" type="id"></item>
+  <item name="imgLaddaFantasyApp" type="id"></item>
+</resources>

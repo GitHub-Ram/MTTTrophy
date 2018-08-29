@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!--<string name="Hello">Hello World, Click Me!</string>
+  <string-array name="list">
+    <item>Dealer:Dummy Text</item>
+    <item>Item 2</item>
+    <item>Item 3</item>
+    <item>Item 4</item>
+    <item>Item 5</item>
+  </string-array>
+  <string name="fragment1">Fragment1</string>
+  <string name="fragment2">Fragment2</string>-->
+
+  <string-array name="genderList">
+    <item>Gender</item>
+    <item>Male</item>
+    <item>Female</item>
+  </string-array>
+  <string name="ApplicationName">Poker</string>
+  <string name="drawer_open">Open</string>
+  <string name="drawer_close">Close</string>
+  <string name="size">Phone</string>
+
+
+  <!--Tourney Strings Starts-->
+
+  <string name="timer">Tournament Start In</string>
+  <string name="TourneyInfo1">
+    The winning from VIP tables become redeemable only after you
+    convert VIP chips back to real cash chips
+  </string>
+
+  <string name="TourneyInfo2">
+    The VIP tables end on the last day of the Quarter. On this day, all the balance
+    VIP chips will be converted back to real cash chips automatically.
+  </string>
+
+
+  <string name="TourneyInfo3">
+    Tax Deduction: In case the VIP chip winnings are more than 10,000,
+    tax shall be deducted when VIP chips are converted back to real cash chips.
+  </string>
+
+
+  <string name="TourneyRule1">
+    Players can register with 30 real chips
+  </string>
+
+  <string name="TourneyRule2">
+    Starting stack 1000, blind increaments time 6 mins and turn time 15 seconds
+  </string>
+
+
+  <string name="TourneyRule3">
+    Late registration allowed for 25 mins
+  </string>
+
+  <string name="TourneyRule4">
+    No rebuys allowed.
+  </string>
+
+  <string name="TourneyRule5">
+    Players will be automatically seated on random tables.
+  </string>
+
+  <string name="TourneyRule6">
+    Table will merge automatically and winners will continue to play.
+  </string>
+
+  <string name="TourneyRule7">
+    Prize: 3 tickets for main event step 2.
+  </string>
+  <string name="selectAvatarHeading">
+    <u>Select Avatar</u>
+  </string>
+  <string name="tourneyRulesHeader">
+    <u>TOURNEY RULES</u>
+  </string>
+  <string name="playersViewSno">
+    <u>S. NO.</u>
+  </string>
+  <string name="playersViewPlayers">
+    <u>PLAYERS</u>
+  </string>
+  <string name="MTTPopUpPrizeSummaryHeader">
+    PRIZE SUMMARY
+  </string>
+  <string name="MTTPopUpPrizeSummaryRankHeader">
+    <u>RANK</u>
+  </string>
+  <string name="txtMTTPopUpPrizeSummaryPlayersHeader">
+    <u>PLAYERS</u>
+  </string>
+  <string name="txtMTTPopUpPrizeSummaryPrizeHeader">
+    <u>PRIZE</u>
+  </string>
+  <string name="tourneyInfoHeader">
+    <u>TOURNEY INFO</u>
+  </string>
+
+  <!--local app id 619321564837971 -->
+  <string name="app_name">Adda52\nPoker</string>
+  <string name="bountyplayerusername">
+    <u>PLAYER NAME</u>
+  </string>
+  <string name="bountyplayerbounty">
+    <u>BOUNTY</u>
+  </string>
+  <string name="txtTermConditions">
+    I accept the <b>
+      <u>Terms &amp; Conditions</u>
+    </b>
+  </string>
+  <string name="txtUnclaimedBonus">
+    Locked Bonus : <b>\u20B9 1,290 </b>
+  </string>
+  <string name="txtPayableAmount">
+    Total Payable Amount : <b>\u20B9 1,290 </b>
+  </string>
+
+  <string name="card_number_hint">Enter card number</string>
+  <string name="card_name_hint">Enter card holder name</string>
+  <string name="card_nick_name_hint">Enter nick name</string>
+  <string name="txtRealCashBonus">
+    <b>\u20B9 1,290 </b>
+  </string>
+  <string name="txtRedeemableAmount">
+    Total Redeemable Amount : <b>\u20B9 1,290 </b>
+  </string>
+
+  <string name="lblAlternateMobileNo">Alternate\nMobile No.</string>
+  <string name="lblPanNumber">PAN No.</string>
+
+  <string name="redeem_success_msg">
+    We have received your withdrawal request of amount <b>{0}</b>.The redemption has been deducted from your adda52 account. The status of your request will change to approved
+    after our internal processing. You shall receive a mail when this happens. Please add info@alerts.adda52.com to your address book
+    to enable timely delivery of our mails.
+  </string>
+
+  <string name="redeem_note_msg">
+    <b>Note :</b> Withdrawal requests can be made at any time during the day. The Withdrawal requests shall be processed within one week\’s time.
+  </string>
+
+  <!--END-->
+  <!--Leader Board Strings Starts-->
+  <string name="txtldrbrdPlayersTableHeader_Rank">
+    <u>RANK</u>
+  </string>
+  <string name="txtldrbrdPlayersTableHeader_Players">
+    <u>PLAYERS</u>
+  </string>
+  <string name="txtldrbrdPlayersTableHeader_Points">
+    <u>POINTS</u>
+  </string>
+  <string name="txtldrbrdUserTableHeader_Name">
+    <u>USERNAME</u>
+  </string>
+  <string name="txtldrbrdPointsCalcFormula">
+    <u>Points Calculation Formula</u>
+  </string>
+  <string name="txtldrbrdKnowMore">
+    <u>Know More</u>
+  </string>
+  <string name="txtLobbyFilterReset">
+    <u>Reset</u>
+  </string>
+  <string name="txtLobbyFilterError">
+    Please select table size.
+  </string>
+  <string name="txtbuyin">
+    <u>Buy In</u>
+  </string>
+
+  <string name="stack">
+    <u>
+      Stacks
+    </u>
+
+
+  </string>
+
+
+  <string name="txtCheckMessage">
+    Check option is available. Are you\n
+    sure you want to Fold?
+  </string>
+  <string name="vipTextMessage">
+    VIP winnings of more than \u20B9 10,000 will have TDS (Tax Deducted at Source) applicable. Please check the TDS amount, before transfering VIP chips to Poker Wallet.
+  </string>
+  <string name="vipTextMessage_cashier">
+    VIP winnings of more than \u20B9 10,000 will have TDS (Tax Deducted at Source) applicable. Please check the TDS amount, before transfering VIP chips to Poker Wallet.
+  </string>
+
+
+  <string name="redeem_note">
+    <b>Note :</b> You have \u20B9 {0} redeemable amount as VIP chips. To add this amount in your existing redeemable balance, you must transfer this your VIP chips to poker wallet.
+  </string>
+
+  <string name="transfer_text">
+    <u>Transfer VIP Chips to Poker Wallet</u>
+  </string>
+
+
+  <string name="contactSupport_cashier">
+    In case of any query please contact Customer Support @ 1800-3000-0611
+  </string>
+
+  <string name="txtAllinMessage">
+    Do you really want to go All-in?
+  </string >
+
+  <string name="DealMakingTermsText">
+    These are the proposed deal terms: Please review carefully and select <i><b>ACCEPT </b></i>or<i><b> REJECT.</b> Every players must select  <b><I>ACCEPT</I></b> for the deal </i> to take place.
+  </string>
+
+
+
+  <string name="DealMakingFooterText"> 2/9 players have accepted the deal </string>
+  <string name="DealMakingHeaderText">Deal</string>
+
+  <string name="tootltipInfo">You have insufficient chip balance in your Poker wallet. Please transfer your VIP chips to Poker wallet to enable above option(s).</string>
+  
+  <string name="RebuytootltipInfo">You have insufficient chip balance in your Poker wallet. Please transfer your VIP chips to Poker wallet to Rebuy.</string>
+  <string name="AddontootltipInfo">You have insufficient chip balance in your Poker wallet. Please transfer your VIP chips to Poker wallet to Addon.</string>
+ <string name="sngtootltipInfo">You have insufficient chip balance in your Poker wallet. Please transfer your VIP chips to Poker wallet to play.</string>
+ 
+
+  <string name="TransferVipChips">
+    <u>Transfer VIP Chips to Poker Wallet </u>
+  </string>
+  <string name="Rs">\u20B9</string>
+
+  <string name="PokerWallet">Poker Wallet -</string>
+  <string name="VipChips">VIP Chips  - </string>
+  <!-- Start Bad  beat jackpot shared resource string-->
+  <string name="jackpot_popup_header">Bad Beat Jackpot</string>
+  <string name="btnDismiss">
+    <b>CLOSE</b>
+  </string>
+  <string name="winningtext">You won:Rs 14,347.98</string>
+  <string name="announcementText">
+    <b>Queen\'s Bad Beat Jackpot</b> has been won at \nthe table: <b>Chennai Chase #24611855333</b> \n\n Adhish2003 has won:Rs. 54,347.98 \n \u0020\u0020\u0020 Valen has won:Rs. 34347.98
+
+  </string>
+  <!-- End Bad  beat jackpot shared resource string-->  
+   <string name="PokerWalletInfo1">- You can use this balance to Register/Re-Enter/Rebuy/Addon in Tournaments and SnGs.  </string>
+  <string name="PokerWalletInfo2">- All new Purchases, Instant Bonus and Tournament Winnings will be credited to this wallet.  </string>
+  <string name="PokerWalletInfo3">- To play Ring Games, you must transfer the balance from Poker Wallet to VIP Chips.  </string>
+  <string name="PokerWalletInfo4">- You can end your VIP session and transfer VIP Chips to Poker Wallet anytime subject to deduction of appropriate TDS.  </string>
+
+  <string name="VipChipsInfo1">- You can use VIP chips to play on all Ring Game tables.</string>
+  <string name="VipChipsInfo2">- While doing Buy-in for Ring Games, if you do not have enough VIP chips balance, system will automatically transfer the remaining required money from Poker Wallet to VIP chips to meet Buy-in criteria.</string>
+  <string name="VipChipsInfo3">- When you Leave Seat, your remaining balance on the table will credit back to VIP chips.  </string>
+	
+     <string name="LeaveSeat_True">Your request to leave seat in next hand is registered.</string>
+    
+     <string name="LeaveSeat_False">Leave seat in next hand request cancelled.</string>
+    
+
+
+  <string-array name="bet_option_array">
+    <item>Min</item>
+    <item>Max</item>
+    <item>Pot</item>
+    <item>Pot 1/2</item>
+    <item>Pot 3/4</item>
+    <item>Big Blind</item>
+  </string-array>
+  <string name="bet_option_one">Select</string>
+  <string name="bet_option_two">Max</string>
+  <string name="bet_option_three">Pot</string>
+  <string name="bet_option_four">Pot 1/2</string>
+</resources>

@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="HeaderFont">15dp</dimen>
+    <dimen name="drawer_width">240dp</dimen>
+    <dimen name="drawer_item_padding">16dp</dimen>
+    <dimen name="nav_content">17dp</dimen>
+    <dimen name="nav_content_height">95dp</dimen>
+    <dimen name="nav_line_width">170dp</dimen>
+    <!-- Common Start -->
+    <dimen name="font35">48dp</dimen>
+    <dimen name="font25">57dp</dimen>
+    <dimen name="font20">33dp</dimen>
+    <dimen name="font19">35dp</dimen>
+    <dimen name="font18">31dp</dimen>
+    <dimen name="font17">30dp</dimen>
+    <dimen name="font16">29dp</dimen>
+    <dimen name="font15">28dp</dimen>
+    <dimen name="font14">27dp</dimen>
+    <dimen name="font13">26dp</dimen>
+    <dimen name="font12">25dp</dimen>
+    <dimen name="font11">24dp</dimen>
+    <dimen name="font10">23dp</dimen>
+    <dimen name="font_seatmoney10">21dp</dimen>
+    <dimen name="font9">22dp</dimen>
+    <dimen name="font8">21dp</dimen>
+    <dimen name="font7">10dp</dimen>
+    <dimen name="fontb7">17dp</dimen>
+    <dimen name="font6">13dp</dimen>
+    <dimen name="font4">9dp</dimen>
+
+  <dimen name="dimen_seatTop">6dp</dimen>
+  <dimen name="dimen_seatBottom">10dp</dimen>
+  
+    <dimen name="dimen1">2dp</dimen>
+    <dimen name="dimen2">4dp</dimen>
+    <dimen name="dimen3">6dp</dimen>
+    <dimen name="dimen4">9dp</dimen>
+    <dimen name="dimen5">10dp</dimen>
+    <dimen name="dimen6">13dp</dimen>
+    <dimen name="dimen7">15dp</dimen>
+    <dimen name="dimen8">17dp</dimen>
+    <dimen name="dimen9">20dp</dimen>
+    <dimen name="dimen10">22dp</dimen>
+    <dimen name="dimen11">24dp</dimen>
+    <dimen name="dimen12">26dp</dimen>
+    <dimen name="dimen13">28dp</dimen>
+    <dimen name="dimen14">31dp</dimen>
+    <dimen name="dimen15">33dp</dimen>
+    <dimen name="dimen16">35dp</dimen>
+    <dimen name="dimen17">37dp</dimen>
+    <dimen name="dimen18">39dp</dimen>
+    <dimen name="dimen19">41dp</dimen>
+    <dimen name="dimen20">44dp</dimen>
+    <dimen name="dimen25">55dp</dimen>
+  <dimen name="dimen26">58.5dp</dimen>
+    <dimen name="dimen28">63dp</dimen>
+
+    <dimen name="dimen30">66dp</dimen>
+  <dimen name="dimen38">85dp</dimen>
+    <dimen name="dimen40">90dp</dimen>
+  <dimen name="dimen49">110dp</dimen>
+    <dimen name="dimen50">120dp</dimen>
+  <dimen name="dimen59">130dp</dimen>
+    <dimen name="dimen60">132dp</dimen>
+  <dimen name="dimen62">136dp</dimen>
+    <dimen name="dimen70">157dp</dimen>
+  <dimen name="dimen77">173dp</dimen>
+    <dimen name="dimen80">188dp</dimen>
+  <dimen name="dimen85">187dp</dimen>
+  <dimen name="dimen87">191dp</dimen>
+    <dimen name="dimen90">202dp</dimen>
+	<dimen name="dimen91">206dp</dimen>
+  <dimen name="dimen98">220dp</dimen>
+  <dimen name="dimen93">209dp</dimen>
+  <dimen name="dimen95">213dp</dimen>
+  <dimen name="dimen96">216dp</dimen>
+  <dimen name="dimen97">218dp</dimen>
+  <dimen name="diveder_dimen90">202dp</dimen>
+  <dimen name="dimen99">222dp</dimen>
+    <dimen name="dimen100">220dp</dimen>
+  <dimen name="dimen108">243dp</dimen>
+    <dimen name="dimen120">264dp</dimen>
+  <dimen name="dimen128">228dp</dimen>
+  <dimen name="dimen130">286dp</dimen>
+  <dimen name="dimen127">285dp</dimen>
+  <dimen name="dimen133">299dp</dimen>
+  <dimen name="dimen135">303dp</dimen>
+    <dimen name="dimen140">308dp</dimen>
+	<dimen name="dimen145">325dp</dimen>
+    <dimen name="dimen160">352dp</dimen>
+    <dimen name="dimen180">396dp</dimen>
+    <dimen name="dimen200">440dp</dimen>
+  <dimen name="dimen240">540dp</dimen>
+    <dimen name="dimen250">550dp</dimen>
+  <dimen name="dimen260">585dp</dimen>
+    <dimen name="dimen280">630dp</dimen>
+    <dimen name="dimen300">675dp</dimen>
+    <dimen name="dimen320">720dp</dimen>
+  <dimen name="dimen340">770dp</dimen>
+    <dimen name="dimen350">787dp</dimen>
+    <dimen name="dimen400">900dp</dimen>
+  <dimen name="dimen403">906dp</dimen>
+  <dimen name="dimen415">930dp</dimen>
+  <dimen name="dimen430">960dp</dimen>
+    <dimen name="dimen450">1012dp</dimen>
+    <dimen name="dimen500">1125dp</dimen>
+    <dimen name="dimen550">1230dp</dimen>
+  <dimen name="dimen580">1305dp</dimen>
+  <dimen name="dimen600">1350dp</dimen>
+    <!--<dimen name="dimen19">43dp</dimen>-->
+  <dimen name="dimen_30">-66dp</dimen>
+    <dimen name="dimen21">46dp</dimen>
+    <dimen name="dimen_2">-4dp</dimen>
+    <dimen name="dimen86">193dp</dimen>
+    <dimen name="dimen35">78dp</dimen>
+    <dimen name="dimen_50">-112dp</dimen>
+    <dimen name="dimen_20">-50dp</dimen>
+  <dimen name="dimen204">480dp</dimen>
+  <dimen name="dimen208">488dp</dimen>
+  <dimen name="dimen150">393dp</dimen>
+  
+    <dimen name="dimen155">348dp</dimen>
+    <dimen name="dimen165">371dp</dimen>
+    <dimen name="dimen170">382dp</dimen>
+     <dimen name="dimen172">387dp</dimen>
+    <dimen name="dimen175">393dp</dimen>
+  <dimen name="dimen177">398dp</dimen>
+    <dimen name="dimen275">618dp</dimen>
+    <dimen name="dimen205">461dp</dimen>
+    <dimen name="dimen310">697dp</dimen>
+    <dimen name="dimen55">124dp</dimen>
+    <dimen name="dimen480">1080dp</dimen>
+    <dimen name="dimen45">101dp</dimen>
+    <dimen name="dimen315">709dp</dimen>
+    <dimen name="dimen265">596dp</dimen>
+    <dimen name="dimen4.7">10.6dp</dimen>
+    <dimen name="dimen.75">1.7dp</dimen>
+    <dimen name="dimen0.5">1.1dp</dimen>
+    <dimen name="dimen1.5">3.3dp</dimen>
+    <!--<dimen name="dimen27">61dp</dimen>-->
+    <dimen name="dimen34">72dp</dimen>
+    <dimen name="dimen41">92dp</dimen>
+
+    <dimen name="dimen33">72dp</dimen>
+    <dimen name="dimen53">119dp</dimen>
+    <dimen name="dimen215">484dp</dimen>
+    <dimen name="dimen117">263dp</dimen>
+    <dimen name="dimen220">495dp</dimen>
+  <dimen name="dimen227">510dp</dimen>
+    <!--<dimen name="dimen_2">-4dp</dimen>-->
+    <dimen name="dimen24">54dp</dimen>
+
+  <dimen name="dimen57">128dp</dimen>
+  <dimen name="dimen47">105dp</dimen>
+
+  <dimen name="dimen_9">-18dp</dimen>
+    <dimen name="dimen_15">-33dp</dimen>
+
+    <dimen name="dimen_1">-2dp</dimen>
+    <dimen name="dimen_3">-6.6dp</dimen>
+  <dimen name="dimen_minus5">-11dp</dimen>
+    <dimen name="dimen_10">-22dp</dimen>
+    <dimen name="dimen_7">-15dp</dimen>
+  <dimen name="dimen_8">-18dp</dimen>
+    <dimen name="dimen_12">-26dp</dimen>
+    <dimen name="dimen_14">-30dp</dimen>
+  <dimen name="dimen_25">-56dp</dimen>
+   <dimen name="dimen_27">-59.4dp</dimen>
+    <dimen name="dimen67">150dp</dimen>
+    <dimen name="dimen162">364dp</dimen>
+    <dimen name="dimen167">375dp</dimen>
+    <dimen name="dimen245">551dp</dimen>
+    <dimen name="dimen110">247dp</dimen>
+  <dimen name="dimen115">258dp</dimen>
+    <dimen name="dimen365">821dp</dimen>
+    <dimen name="dimen65">146dp</dimen>
+    <dimen name="dimen43">97dp</dimen>
+    <!--<dimen name="dimen28">63dp</dimen>-->
+    <dimen name="dimen32">72dp</dimen>
+    <dimen name="dimen22">49dp</dimen>
+    <dimen name="dimen23">51dp</dimen>
+    <dimen name="dimen230">400dp</dimen>
+    <!--<dimen name="dimen17">38dp</dimen>-->
+    <!--<dimen name="dimen18">39dp</dimen>-->
+    <dimen name="dimen75">175dp</dimen>
+    <dimen name="dimen370">832dp</dimen>
+    <dimen name="dimen410">600dp</dimen>
+    <dimen name="dimen_chbspace">65dp</dimen>
+    <dimen name="dimen190">427dp</dimen>
+    <dimen name="dimen191">33dp</dimen>
+       <dimen name="dimen192">44dp</dimen>
+    <dimen name="dimen_user_n_money">35dp</dimen>
+  <dimen name="dimen_sitout">130dp</dimen>
+    <!-- Common End -->
+  <dimen name="dimen_remember30">66dp</dimen>
+  
+    <!--lobby dimens start-->
+
+    <dimen name="lobby_dimen1">77dp</dimen>
+    <dimen name="lobby_dimen2">198dp</dimen>
+    <dimen name="lobby_dimen3">100dp</dimen>
+    <dimen name="lobby_dimen4">470dp</dimen>
+    <dimen name="lobby_dimen5">113dp</dimen>
+
+  <dimen name="dimen_logow">700dp</dimen>
+  <dimen name="dimen_logoh">150dp</dimen>
+  
+    <dimen name="lobby_dimen6">75dp</dimen>
+    <dimen name="lobby_dimen7">106dp</dimen>
+    <dimen name="lobby_dimen8">40dp</dimen>
+    <dimen name="lobby_dimen9">1111dp</dimen>
+    <dimen name="lobby_dimen10">418dp</dimen>
+    <dimen name="lobby_dimen11">484dp</dimen>
+    <dimen name="lobby_dimen12">103dp</dimen>
+    <dimen name="lobby_dimen13">132dp</dimen>
+    <dimen name="lobby_dimen14">255dp</dimen>
+    <dimen name="lobby_dimen15">59dp</dimen>
+    <dimen name="lobby_dimen16">66dp</dimen>
+    <dimen name="lobby_dimen17">550dp</dimen>
+    <dimen name="lobby_dimen18">103dp</dimen>
+    <dimen name="lobby_dimen19">1223dp</dimen>
+    <dimen name="lobby_dimen20">550dp</dimen>
+    <dimen name="lobby_dimen21">22dp</dimen>
+    <dimen name="lobby_dimen22">33dp</dimen>
+    <dimen name="lobby_dimen23">600dp</dimen>
+    <dimen name="lobby_dimen24">99dp</dimen>
+    <dimen name="lobby_dimen25">1056dp</dimen>
+    <dimen name="lobby_dimen26">1170dp</dimen>
+    <dimen name="lobby_dimen27">110dp</dimen>
+    <dimen name="lobby_dimen28">132dp</dimen>
+    <dimen name="lobby_dimen29">143dp</dimen>
+    <dimen name="lobby_dimen30">88dp</dimen>
+    <dimen name="lobby_dimen31">110dp</dimen>
+    <dimen name="lobby_dimen32">132dp</dimen>
+    <dimen name="lobby_dimen33">72dp</dimen>
+    <dimen name="lobby_dimen34">255dp</dimen>
+    <dimen name="lobby_dimen35">100dp</dimen>
+    <dimen name="lobby_dimen36">145dp</dimen>
+    <dimen name="lobby_dimen37">120dp</dimen>
+    <dimen name="lobby_dimen38">83dp</dimen>
+    <dimen name="lobby_dimen39">110dp</dimen>
+    <dimen name="lobby_dimen40">70dp</dimen>
+    <dimen name="lobby_dimen41">150dp</dimen>
+    <dimen name="lobby_dimen42">50dp</dimen>
+    <dimen name="lobby_dimen43">180dp</dimen>
+    <dimen name="lobby_dimen44">185dp</dimen>
+    <dimen name="lobby_dimen45">195dp</dimen>
+    <dimen name="lobby_dimen46">160dp</dimen>
+    <dimen name="lobby_dimen47">165dp</dimen>
+    <dimen name="lobby_dimen48">130dp</dimen>
+    <dimen name="lobby_dimen49">90dp</dimen>
+    <dimen name="lobby_dimen50">15dp</dimen>
+    <dimen name="lobby_dimen51">350dp</dimen>
+    <dimen name="lobby_dimen52">115dp</dimen>
+    <dimen name="lobby_dimen53">155dp</dimen>
+    <dimen name="lobby_dimen54">500dp</dimen>
+    <dimen name="lobby_dimen55">360dp</dimen>
+    <dimen name="lobby_dimen56">105dp</dimen>
+    <dimen name="lobby_dimen57">95dp</dimen>
+    <dimen name="lobby_dimen58">300dp</dimen>
+    <dimen name="lobby_dimen59">900dp</dimen>
+    <dimen name="lobby_dimen60">451dp</dimen>
+    <dimen name="lobby_dimen61">15dp</dimen>
+    <dimen name="lobby_dimen62">110dp</dimen>
+    <dimen name="lobby_dimen63">15dp</dimen>
+    <dimen name="lobby_dimen64">35dp</dimen>
+    <dimen name="lobby_dimen65">385dp</dimen>
+    <dimen name="lobby_dimen66">72dp</dimen>
+    <dimen name="lobby_dimen67">240dp</dimen>
+    <dimen name="lobby_dimen68">55dp</dimen>
+    <dimen name="lobby_dimen69">120dp</dimen>
+    <dimen name="lobby_dimen70">140dp</dimen>
+    <dimen name="lobby_dimen71">191dp</dimen>
+    <dimen name="lobby_dimen72">73dp</dimen>
+    <dimen name="lobby_dimen73">70dp</dimen>
+    <dimen name="lobby_dimen74">132dp</dimen>
+    <dimen name="lobby_dimen75">10dp</dimen>
+    <dimen name="lobby_dimen76">0.75dp</dimen>
+
+  <!-- freeroll lobby dimens -->
+  <dimen name="fr_dimen240">540dp</dimen>
+  <dimen name="fr_dimen470">1057dp</dimen>
+
+
+
+  <dimen name="lobby_font10">20dp</dimen>
+    <dimen name="lobby_font12">22dp</dimen>
+    <dimen name="lobby_font14">24dp</dimen>
+    <dimen name="lobby_font15">26dp</dimen>
+    <dimen name="lobby_font16">28dp</dimen>
+    <dimen name="lobby_font17">30dp</dimen>
+    <dimen name="lobby_font18">32dp</dimen>
+    <dimen name="lobby_font13">27dp</dimen>
+    <dimen name="lobby_font19">35dp</dimen>
+    <dimen name="lobby_font20">44dp</dimen>
+    <dimen name="lobby_dimen200">380dp</dimen>
+    <!--lobby dimens end-->
+
+    <!--timer start-->
+    <dimen name="thickness">7.88dp</dimen>
+    <dimen name="f_thickness">15dp</dimen>
+    <dimen name="dimen36">115dp</dimen>
+    <dimen name="timer_width">100dp</dimen>
+    <dimen name="dimen27">55dp</dimen>
+    <!--timer end-->
+
+    <!--footer start-->
+    <dimen name="dimenfootersliderLeft">74dp</dimen>
+    <dimen name="dimenfootersliderRight">68dp</dimen>
+    <!--footer end-->
+
+    <!--buyin start-->
+    <dimen name="dimenbuyinsliderLeft">9dp</dimen>
+    <dimen name="dimenbuyinsliderRight">9dp</dimen>
+    <dimen name="dimenbuyinslidermargin">0dp</dimen>
+    <!--buyin end-->
+
+  <!--Freeroll lobby start-->
+  <dimen name="frlobbydimen5">66dp</dimen>
+  <dimen name="frlobbydimen2">0dp</dimen>
+  <!--Freeroll lobby end-->
+
+
+  <!--Total pot start-->
+  <dimen name="totalpot">101dp</dimen>
+  <!--Total pot End-->
+
+
+  <!--Hole Card start-->
+  <dimen name="holecardvalue">28dp</dimen>
+  <dimen name="holecardsuit">31dp</dimen>
+  <dimen name="holecardsuitbig">45dp</dimen>
+  <!--Hole Card End-->
+
+  <!--Community Card start-->
+  <dimen name="communityvalue">35dp</dimen>
+  <dimen name="communitysuit">48dp</dimen>
+
+  <!--Community Card End-->
+
+
+  <!--Menu poup start-->
+  <dimen name="menuspace">39dp</dimen>
+  <!--Menu poup End-->
+  <dimen name="dimen104">104dp</dimen>
+  <dimen name="minus2">-2dp</dimen>
+  <dimen name="minus15">-15dp</dimen>
+  <dimen name="sp25">25sp</dimen>
+  <dimen name="minus16">-16dp</dimen>
+  <dimen name="dimension155">155dp</dimen>
+  <dimen name="leagueaddatop">0.5dp</dimen>
+</resources>
