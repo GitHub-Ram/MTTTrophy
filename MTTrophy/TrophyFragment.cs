@@ -18,13 +18,12 @@ using static Android.Views.View;
 
 namespace MTTrophy
 {
-    public class TrophyFragment : DialogFragment, IOnTouchListener
+    public class TrophyFragment : DialogFragment
     {
         public Action<Bitmap, LinearLayout> OnCAptureClick { get; set; }
         public Action<bool> ResetAcitivity { get; set; }
         public Action<bool> ChangeCameraFace { get; set; }
         public Action<bool> BackPressEvent { get; set; }
-        //private Matrix matrix = new Matrix();
         private Matrix ReuseMatrix = new Matrix();
         private Matrix savedMatrix = new Matrix();
         private const int NONE = 0;
@@ -40,6 +39,7 @@ namespace MTTrophy
         private int screenWidth = 0;
         private int screenHeight = 0;
         private Handler mHandler ;
+        private MatrixConfig matrixConfig;
 
         FrameLayout ActionLayout;
         public LinearLayout progressBarLL;
@@ -129,7 +129,6 @@ namespace MTTrophy
             if (context.LastSelectedIndex == -1)
             {
                 linearButton.SetBackgroundResource(Resource.Drawable.trophy_center_selection_circle);
-                //logoImageView.SetImageResource(0);
                 containerImg.RemoveAllViews();
             }
         }
@@ -172,11 +171,9 @@ namespace MTTrophy
             {
                 if (bitmap != null)
                 {
-                    ReuseMatrix = new Matrix(context.matrix);
-                    savedMatrix = new Matrix(context.matrix);
                     progressBarLL.Visibility = ViewStates.Visible;
+                    context.matrix.Set(matrixConfig.transform);
                     OnCAptureClick(bitmap, linearButton);
-                    //linearButton.Enabled = false;
                 }
             };
 
@@ -195,11 +192,11 @@ namespace MTTrophy
                 imageLayout.Visibility = ViewStates.Gone;
                 ActionLayout.Visibility = ViewStates.Visible;
                 ResetAcitivity(true);
-                //if (bitmap != null)
-                //    logoImageView.SetImageBitmap(bitmap);
-                //logoImageView.ImageMatrix = ReuseMatrix;
                 containerImg.RemoveAllViews();
-                containerImg.AddView(new SandboxView(Context, bitmap));
+                if(matrixConfig==null){
+                    matrixConfig = new MatrixConfig();
+                }
+                containerImg.AddView(new SandboxView(Context, bitmap,matrixConfig));
             };
 
             back.Click += delegate
@@ -268,18 +265,6 @@ namespace MTTrophy
                 mAdapter = new HorizontalTrouphyAdaptor(mPhotoAlbum);
                 ActionLayout.Visibility = ViewStates.Visible;
                 mRecycleView.SetAdapter(mAdapter);
-                //if (context.LastSelectedIndex != -1)
-                //{
-                //    mRecycleView.PostDelayed(() => {
-                //        mRecycleView.SmoothScrollToPosition(increase + context.LastSelectedIndex);
-                //    }, 500);
-                //    //mRecycleView.PostDelayed(() => {
-                //    //    mRecycleView.FindViewHolderForAdapterPosition(increase + context.LastSelectedIndex).ItemView.PerformClick();
-                //    //}, 1000);
-                //    bitmap = mPhotoAlbum[increase + context.LastSelectedIndex].bitmap;
-                //    logoImageView.SetImageBitmap(bitmap);
-                //    logoImageView.ImageMatrix = context.matrix;
-                //}
                 mAdapter.ItemClick += (sender, e) =>
                 {
                     if (e > ExtraItem - 1 && e - 1 < mPhotoAlbum.numPhoto - ExtraItem)
@@ -298,18 +283,13 @@ namespace MTTrophy
                         linearButton.SetBackgroundResource(Resource.Drawable.solid_circle_background_trophy);
                         mAdapter.NotifyItemChanged(e);
                         context.LastSelectedIndex = e - ExtraItem;
-                        bitmap = mPhotoAlbum[e].bitmap; //BitmapFactory.DecodeResource(Resources, mPhotoAlbum[e].mPhotoID);
-
-                        //bitmap = Bitmap.CreateScaledBitmap(bitmap, (int)context.Resources.GetDimension(Resource.Dimension.dimen120), (int)context.Resources.GetDimension(Resource.Dimension.dimen150), true);
-                        //logoImageView.SetImageBitmap(bitmap);
+                        bitmap = mPhotoAlbum[e].bitmap;
                         containerImg.RemoveAllViews();
-                        containerImg.AddView(new SandboxView(Context, bitmap));
-                        //ViewImage = new SandboxView(Context,bitmap);
-                        //RectF drawableRect = new RectF(0, 0, (int)context.Resources.GetDimension(Resource.Dimension.dimen120), (int)context.Resources.GetDimension(Resource.Dimension.dimen150));
-                        //RectF viewRect = new RectF(0, 0, logoImageView.Width, logoImageView.Height);
-                        //context.matrix.SetRectToRect(drawableRect, viewRect, Matrix.ScaleToFit.Center);
-
-                        //logoImageView.ImageMatrix = context.matrix;
+                        if (matrixConfig == null)
+                        {
+                            matrixConfig = new MatrixConfig();
+                        }
+                        containerImg.AddView(new SandboxView(Context, bitmap,matrixConfig));
                     }
                 };
             }
@@ -323,7 +303,6 @@ namespace MTTrophy
             if ((lastVisisble - firstVisible) / 2 + firstVisible > ExtraItem - 1)
             {
                 int e = (lastVisisble - firstVisible) / 2 + firstVisible;
-                //mRecycleView.SmoothScrollToPosition(e);
                 for (int i = 0; i < mPhotoAlbum.numPhoto; i++)
                 {
                     if (mPhotoAlbum[i].SelectedId != 0)
@@ -338,16 +317,12 @@ namespace MTTrophy
                 mAdapter.NotifyItemChanged(e);
                 context.LastSelectedIndex = e - ExtraItem;
                 bitmap = mPhotoAlbum[e].bitmap;
-                //bitmap = Bitmap.CreateScaledBitmap(bitmap, (int)context.Resources.GetDimension(Resource.Dimension.dimen120), (int)context.Resources.GetDimension(Resource.Dimension.dimen150), true);
-                //logoImageView.SetImageBitmap(bitmap);
-                //ViewImage = new SandboxView(Context, bitmap);
                 containerImg.RemoveAllViews();
-                containerImg.AddView(new SandboxView(Context, bitmap));
-                //RectF drawableRect = new RectF(0, 0, (int)context.Resources.GetDimension(Resource.Dimension.dimen120), (int)context.Resources.GetDimension(Resource.Dimension.dimen150));
-                //RectF viewRect = new RectF(0, 0, logoImageView.Width, logoImageView.Height);
-                //context.matrix.SetRectToRect(drawableRect, viewRect, Matrix.ScaleToFit.Center);
-
-                //logoImageView.ImageMatrix = context.matrix;
+                if (matrixConfig == null)
+                {
+                    matrixConfig = new MatrixConfig();
+                }
+                containerImg.AddView(new SandboxView(Context, bitmap,matrixConfig));
             }
             else
             {
@@ -361,13 +336,10 @@ namespace MTTrophy
 
                 }
                 linearButton.SetBackgroundResource(Resource.Drawable.trophy_center_selection_circle);
-                //logoImageView.SetImageResource(0);
                 containerImg.RemoveAllViews();
-                //ViewImage = new SandboxView(Context, BitmapFactory.DecodeResource(context.Resources,0));
                 context.LastSelectedIndex = -1;
                 if (bitmap != null && !bitmap.IsRecycled)
                 {
-                    //bitmap.Recycle();
                     bitmap = null;
                     GC.Collect();
                 }
@@ -376,192 +348,191 @@ namespace MTTrophy
 
         public void CapturedBitmap(Bitmap bitmap)
         {
-            //ActionLayout.Visibility = ViewStates.Gone;
             progressBarLL.Visibility = ViewStates.Gone;
             imageLayout.Visibility = ViewStates.Visible;
             takenImage.SetImageBitmap(bitmap);
         }
 
         #region Motion
-        /**
-         * Determine the space between the first two fingers
-         */
-        private float Spacing(MotionEvent e)
-        {
-            try{
-                float x = e.GetX(0) - e.GetX(1);
-                float y = e.GetY(0) - e.GetY(1);
-                return FloatMath.Sqrt(x * x + y * y);
-            }catch(Exception ex){
-                float x = e.GetX(0);
-                float y = e.GetY(0);
-                return FloatMath.Sqrt(x * x + y * y);
-            }
-        }
+        ///**
+        // * Determine the space between the first two fingers
+        // */
+        //private float Spacing(MotionEvent e)
+        //{
+        //    try{
+        //        float x = e.GetX(0) - e.GetX(1);
+        //        float y = e.GetY(0) - e.GetY(1);
+        //        return FloatMath.Sqrt(x * x + y * y);
+        //    }catch(Exception ex){
+        //        float x = e.GetX(0);
+        //        float y = e.GetY(0);
+        //        return FloatMath.Sqrt(x * x + y * y);
+        //    }
+        //}
 
-        /**
-         * Calculate the mid point of the first two fingers
-         */
-        private void MidPoint(PointF point, MotionEvent e)
-        {
-            try{
-                float x = e.GetX(0) + e.GetX(1);
-                float y = e.GetY(0) + e.GetY(1);
-                point.Set(x / 2, y / 2);
-            }catch(Exception ex){
-                float x = e.GetX(0) ;
-                float y = e.GetY(0) ;
-                point.Set(x / 2, y / 2);
-            }
+        ///**
+        // * Calculate the mid point of the first two fingers
+        // */
+        //private void MidPoint(PointF point, MotionEvent e)
+        //{
+        //    try{
+        //        float x = e.GetX(0) + e.GetX(1);
+        //        float y = e.GetY(0) + e.GetY(1);
+        //        point.Set(x / 2, y / 2);
+        //    }catch(Exception ex){
+        //        float x = e.GetX(0) ;
+        //        float y = e.GetY(0) ;
+        //        point.Set(x / 2, y / 2);
+        //    }
 
-        }
+        //}
 
-        /**
-         * Calculate the degree to be rotated by.
-         *
-         * @param event
-         * @return Degrees
-         */
-        private float Rotation(MotionEvent e)
-        {
-            try{
-                double delta_x = (e.GetX(0) - e.GetX(1));
-                double delta_y = (e.GetY(0) - e.GetY(1));
-                double radians = Java.Lang.Math.Atan2(delta_y, delta_x);
-                return (float)Java.Lang.Math.ToDegrees(radians);
-            }
-            catch(Exception ex){
-                double delta_x = (e.GetX(0) );
-                double delta_y = (e.GetY(0) );
-                double radians = Java.Lang.Math.Atan2(delta_y, delta_x);
-                return (float)Java.Lang.Math.ToDegrees(radians);
-            }
-        }
-        bool NOEvent = false;
-        public bool OnTouch(View v, MotionEvent e)
-        {
-            if (NOEvent)
-                return false;
-            ImageView view = (ImageView)v;
-            switch (e.Action & MotionEventActions.Mask)
-            {
-                case MotionEventActions.Down:
-                    savedMatrix.Set(context.matrix);
-                    start.Set(e.GetX(), e.GetY());
-                    mode = DRAG;
-                    lastEvent = null;
-                    break;
-                case MotionEventActions.PointerDown:
-                    oldDist = Spacing(e);
-                    if (oldDist > 10f)
-                    {
-                        savedMatrix.Set(context.matrix);
-                        MidPoint(mid, e);
-                        mode = ZOOM;
-                    }
-                    lastEvent = new float[4];
-                    lastEvent[0] = e.GetX(0);
-                    lastEvent[1] = e.GetX(1);
-                    lastEvent[2] = e.GetY(0);
-                    lastEvent[3] = e.GetY(1);
-                    d = Rotation(e);
-                    break;
-                case MotionEventActions.Up:
-                case MotionEventActions.PointerUp:
-                    mode = NONE;
-                    lastEvent = null;
-                    break;
-                case MotionEventActions.Move:
-                    if (mode == DRAG)
-                    {
-                        Drawable drawable = view.Drawable;
-                        RectF imageBounds = new RectF();
+        ///**
+        // * Calculate the degree to be rotated by.
+        // *
+        // * @param event
+        // * @return Degrees
+        // */
+        //private float Rotation(MotionEvent e)
+        //{
+        //    try{
+        //        double delta_x = (e.GetX(0) - e.GetX(1));
+        //        double delta_y = (e.GetY(0) - e.GetY(1));
+        //        double radians = Java.Lang.Math.Atan2(delta_y, delta_x);
+        //        return (float)Java.Lang.Math.ToDegrees(radians);
+        //    }
+        //    catch(Exception ex){
+        //        double delta_x = (e.GetX(0) );
+        //        double delta_y = (e.GetY(0) );
+        //        double radians = Java.Lang.Math.Atan2(delta_y, delta_x);
+        //        return (float)Java.Lang.Math.ToDegrees(radians);
+        //    }
+        //}
+        //bool NOEvent = false;
+        //public bool OnTouch(View v, MotionEvent e)
+        //{
+        //    if (NOEvent)
+        //        return false;
+        //    ImageView view = (ImageView)v;
+        //    switch (e.Action & MotionEventActions.Mask)
+        //    {
+        //        case MotionEventActions.Down:
+        //            savedMatrix.Set(context.matrix);
+        //            start.Set(e.GetX(), e.GetY());
+        //            mode = DRAG;
+        //            lastEvent = null;
+        //            break;
+        //        case MotionEventActions.PointerDown:
+        //            oldDist = Spacing(e);
+        //            if (oldDist > 10f)
+        //            {
+        //                savedMatrix.Set(context.matrix);
+        //                MidPoint(mid, e);
+        //                mode = ZOOM;
+        //            }
+        //            lastEvent = new float[4];
+        //            lastEvent[0] = e.GetX(0);
+        //            lastEvent[1] = e.GetX(1);
+        //            lastEvent[2] = e.GetY(0);
+        //            lastEvent[3] = e.GetY(1);
+        //            d = Rotation(e);
+        //            break;
+        //        case MotionEventActions.Up:
+        //        case MotionEventActions.PointerUp:
+        //            mode = NONE;
+        //            lastEvent = null;
+        //            break;
+        //        case MotionEventActions.Move:
+        //            if (mode == DRAG)
+        //            {
+        //                Drawable drawable = view.Drawable;
+        //                RectF imageBounds = new RectF();
 
-                        if (drawable != null)
-                        {
-                            context.matrix.MapRect(imageBounds, new RectF(drawable.Bounds));
-                        }
-                        if (e.GetX() < imageBounds.Left + imageBounds.Width() && e.GetX() > imageBounds.Left && e.GetY() < imageBounds.Top + imageBounds.Height() && e.GetY() > imageBounds.Top)
-                        {
-                            context.matrix.Set(savedMatrix);
-                            float dx = e.GetX() - start.X;
-                            float dy = e.GetY() - start.Y;
-                            context.matrix.PostTranslate(dx, dy);
-                        }else{
-                            return true;
-                        }
-                    }
-                    else if (mode == ZOOM)
-                    {
-                        float newDist = Spacing(e);
+        //                if (drawable != null)
+        //                {
+        //                    context.matrix.MapRect(imageBounds, new RectF(drawable.Bounds));
+        //                }
+        //                if (e.GetX() < imageBounds.Left + imageBounds.Width() && e.GetX() > imageBounds.Left && e.GetY() < imageBounds.Top + imageBounds.Height() && e.GetY() > imageBounds.Top)
+        //                {
+        //                    context.matrix.Set(savedMatrix);
+        //                    float dx = e.GetX() - start.X;
+        //                    float dy = e.GetY() - start.Y;
+        //                    context.matrix.PostTranslate(dx, dy);
+        //                }else{
+        //                    return true;
+        //                }
+        //            }
+        //            else if (mode == ZOOM)
+        //            {
+        //                float newDist = Spacing(e);
 
-                        if (newDist > 10f)
-                        {
-                            int widthScrn = screenWidth > screenHeight ? screenHeight : screenWidth;
-                            RectF rect = GetRect(view.Drawable, context.matrix);
-                            context.matrix.Set(savedMatrix);
-                            float scale = (newDist / oldDist);
-                            context.matrix.PostScale(scale, scale, rect.CenterX(), rect.CenterY());
+        //                if (newDist > 10f)
+        //                {
+        //                    int widthScrn = screenWidth > screenHeight ? screenHeight : screenWidth;
+        //                    RectF rect = GetRect(view.Drawable, context.matrix);
+        //                    context.matrix.Set(savedMatrix);
+        //                    float scale = (newDist / oldDist);
+        //                    context.matrix.PostScale(scale, scale, rect.CenterX(), rect.CenterY());
 
-                            rect = GetRect(view.Drawable, context.matrix);
-                            if (rect.Height() < 200)
-                            {
-                                //RectF rr = new RectF((int)rect.Left, (int)rect.Top, 200,200);
-                                //context.matrix.SetRectToRect(rect,rr,Matrix.ScaleToFit.Center);
-                                NOEvent = true;
-                                mHandler.PostDelayed(() => { NOEvent = false; },200);
-                                while (rect.Height() < 200)
-                                {
-                                    scale = scale + 0.05f;
-                                    context.matrix.PostScale(scale, scale, rect.CenterX(), rect.CenterY());
-                                    rect = GetRect(view.Drawable, context.matrix);
-                                    //Console.WriteLine("Smaller Scale:" + scale+ " Height:"+rect.Height());
-                                }
-                                //Console.WriteLine("Smaller Scale break:" + scale);
+        //                    rect = GetRect(view.Drawable, context.matrix);
+        //                    if (rect.Height() < 200)
+        //                    {
+        //                        //RectF rr = new RectF((int)rect.Left, (int)rect.Top, 200,200);
+        //                        //context.matrix.SetRectToRect(rect,rr,Matrix.ScaleToFit.Center);
+        //                        NOEvent = true;
+        //                        mHandler.PostDelayed(() => { NOEvent = false; },200);
+        //                        while (rect.Height() < 200)
+        //                        {
+        //                            scale = scale + 0.05f;
+        //                            context.matrix.PostScale(scale, scale, rect.CenterX(), rect.CenterY());
+        //                            rect = GetRect(view.Drawable, context.matrix);
+        //                            //Console.WriteLine("Smaller Scale:" + scale+ " Height:"+rect.Height());
+        //                        }
+        //                        //Console.WriteLine("Smaller Scale break:" + scale);
                             
-                            }else if(rect.Width() > widthScrn){
-                                //RectF rr = new RectF((int)rect.Left, (int)rect.Top, widthScrn, widthScrn);
-                                //context.matrix.SetRectToRect(rect, rr, Matrix.ScaleToFit.Center);
-                                NOEvent = true;
-                                mHandler.PostDelayed(() => { NOEvent = false; }, 200);
-                                scale = 1;
-                                while (rect.Width() > widthScrn){
-                                    scale = scale - 0.05f;
-                                    context.matrix.PostScale(scale , scale, rect.CenterX(), rect.CenterY());
-                                    rect = GetRect(view.Drawable, context.matrix);
-                                    //Console.WriteLine("Bigger Scale:" + scale+ " Height:" + rect.Height());
-                                }
-                                //Console.WriteLine("Bigger Scale break:" + scale);
-                            }
-                        }
-                        if (lastEvent != null && e.PointerCount == 3)
-                        {
-                            newRot = Rotation(e);
-                            float r = newRot - d;
-                            float[] values = new float[9];
-                            context.matrix.GetValues(values);
-                            float tx = values[2];
-                            float ty = values[5];
-                            float sx = values[0];
-                            float xc = (view.Width / 2) * sx;
-                            float yc = (view.Height / 2) * sx;
-                            context.matrix.PostRotate(r, tx + xc, ty + yc);
-                        }
-                    }
-                    break;
-            }
-            view.ImageMatrix = (context.matrix);
-            return true;
-        }
+        //                    }else if(rect.Width() > widthScrn){
+        //                        //RectF rr = new RectF((int)rect.Left, (int)rect.Top, widthScrn, widthScrn);
+        //                        //context.matrix.SetRectToRect(rect, rr, Matrix.ScaleToFit.Center);
+        //                        NOEvent = true;
+        //                        mHandler.PostDelayed(() => { NOEvent = false; }, 200);
+        //                        scale = 1;
+        //                        while (rect.Width() > widthScrn){
+        //                            scale = scale - 0.05f;
+        //                            context.matrix.PostScale(scale , scale, rect.CenterX(), rect.CenterY());
+        //                            rect = GetRect(view.Drawable, context.matrix);
+        //                            //Console.WriteLine("Bigger Scale:" + scale+ " Height:" + rect.Height());
+        //                        }
+        //                        //Console.WriteLine("Bigger Scale break:" + scale);
+        //                    }
+        //                }
+        //                if (lastEvent != null && e.PointerCount == 3)
+        //                {
+        //                    newRot = Rotation(e);
+        //                    float r = newRot - d;
+        //                    float[] values = new float[9];
+        //                    context.matrix.GetValues(values);
+        //                    float tx = values[2];
+        //                    float ty = values[5];
+        //                    float sx = values[0];
+        //                    float xc = (view.Width / 2) * sx;
+        //                    float yc = (view.Height / 2) * sx;
+        //                    context.matrix.PostRotate(r, tx + xc, ty + yc);
+        //                }
+        //            }
+        //            break;
+        //    }
+        //    view.ImageMatrix = (context.matrix);
+        //    return true;
+        //}
 
-        private RectF GetRect(Drawable drawable ,Matrix matrix){
-            RectF rect = new RectF();
-            if (drawable != null)
-            {
-                matrix.MapRect(rect, new RectF(drawable.Bounds));
-            }
-            return rect;
-        }
+        //private RectF GetRect(Drawable drawable ,Matrix matrix){
+        //    RectF rect = new RectF();
+        //    if (drawable != null)
+        //    {
+        //        matrix.MapRect(rect, new RectF(drawable.Bounds));
+        //    }
+        //    return rect;
+        //}
         #endregion
     }
 

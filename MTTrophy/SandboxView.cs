@@ -1,21 +1,27 @@
 ﻿using System;
 using Android.Content;
+using Android.Content.Res;
 using Android.Graphics;
+using Android.Graphics.Drawables;
 using Android.Views;
 using static Android.Views.View;
 
 namespace MTTrophy
 {
+    public class MatrixConfig{
+        public Vector2D position { get; set; }
+        public float scale { get; set; }
+        public float angle { get; set; }
+        public Matrix transform { get; set; }
+    }
+
     public class SandboxView : View , IOnTouchListener
     {
         private  Bitmap bitmap;
         private  int width;
         private  int height;
-        private Matrix transform = new Matrix();
-
-        private Vector2D position = new Vector2D();
-        private float scale = 1;
-        private float angle = 0;
+        //private Matrix transform = new Matrix();
+        public MatrixConfig matrixConfig;
 
         private TouchManager touchManager = new TouchManager(2);
         private bool isInitialized = false;
@@ -26,11 +32,14 @@ namespace MTTrophy
         private Vector2D vpa = null;
         private Vector2D vpb = null;
 
-        public SandboxView(Context context, Bitmap bitmap):base(context)
+        public SandboxView(Context context, Bitmap bitmap,MatrixConfig matrixConfig):base(context)
         {
             this.bitmap = bitmap;
             this.width = bitmap.Width;
             this.height = bitmap.Height;
+            this.matrixConfig = matrixConfig;
+            if (matrixConfig.transform == null)
+                matrixConfig.transform = new Matrix();
             SetOnTouchListener(this);
         }
 
@@ -51,7 +60,7 @@ namespace MTTrophy
                 if (touchManager.getPressCount() == 1) {
                     vca = touchManager.getPoint(0);
                     vpa = touchManager.getPreviousPoint(0);
-                    position.add(touchManager.moveDelta(0));
+                    matrixConfig.position.add(touchManager.moveDelta(0));
                 }
                 else 
                 {
@@ -67,9 +76,9 @@ namespace MTTrophy
                         float previousDistance = previous.getLength();
 
                         if (previousDistance != 0) {
-                            scale *= currentDistance / previousDistance;
+                            matrixConfig.scale *= currentDistance / previousDistance;
                         }
-                        angle -= Vector2D.getSignedAngleBetween(current, previous);
+                        matrixConfig.angle -= Vector2D.getSignedAngleBetween(current, previous);
                     }
                 }
                 Invalidate();
@@ -81,46 +90,79 @@ namespace MTTrophy
             return true;
         }
 
+        protected override void OnConfigurationChanged(Configuration newConfig)
+        {
+            //if (newConfig.Orientation == Orientation.Landscape)
+            //{
+            //    InLandscape = true;
+            //    matrixConfig.position.set(matrixConfig.position.getY(), matrixConfig.position.getX());
+            //}
+            //else
+            //{
+            //    InLandscape = false;
+            //    matrixConfig.position.set(matrixConfig.position.getX(), matrixConfig.position.getY());
+            //}
+            isInitialized = false;
+            matrixConfig.position = null;
+            base.OnConfigurationChanged(newConfig);
+
+        }
+
         protected override void OnDraw(Canvas canvas)
         {
             base.OnDraw(canvas);
 
             if (!isInitialized)
             {
-                int w = Width;
-                int h = Height;
-                position.set(w / 2, h / 2);
+                if(matrixConfig.position ==null){
+                    matrixConfig.position = new Vector2D();
+                    matrixConfig.position.set(Width / 2, Height / 2);
+                    if(matrixConfig.scale==0)
+                        matrixConfig.scale = 1;
+                }
                 isInitialized = true;
             }
 
             Paint paint = new Paint();
+            matrixConfig.transform.Reset();
+            matrixConfig.transform.PostTranslate(-width / 2.0f, -height / 2.0f);
+            matrixConfig.transform.PostRotate(getDegreesFromRadians(matrixConfig.angle));
 
-            transform.Reset();
-            transform.PostTranslate(-width / 2.0f, -height / 2.0f);
-            transform.PostRotate(getDegreesFromRadians(angle));
-            transform.PostScale(scale, scale);
-            transform.PostTranslate(position.getX(), position.getY());
-
-            canvas.DrawBitmap(bitmap, transform, paint);
-
-            try
+            if(matrixConfig.scale < 0.22)
             {
-                /*paint.setColor(0xFF007F00);
-                canvas.drawCircle(vca.getX(), vca.getY(), 64, paint);
-                paint.setColor(0xFF7F0000);
-                canvas.drawCircle(vcb.getX(), vcb.getY(), 64, paint);
+                matrixConfig.scale = 0.22f;
+                matrixConfig.transform.PostScale(matrixConfig.scale, matrixConfig.scale);
+            }
+            else if (matrixConfig.scale > 1.1)
+            {
+                matrixConfig.scale = 1.1f;
+                matrixConfig.transform.PostScale(matrixConfig.scale, matrixConfig.scale);
+            }
+            else
+            {
+                matrixConfig.transform.PostScale(matrixConfig.scale, matrixConfig.scale);
+            }
 
-                paint.setColor(0xFFFF0000);
-                canvas.drawLine(vpa.getX(), vpa.getY(), vpb.getX(), vpb.getY(), paint);
-                paint.setColor(0xFF00FF00);
-                canvas.drawLine(vca.getX(), vca.getY(), vcb.getX(), vcb.getY(), paint);*/
+            matrixConfig.transform.PostTranslate(matrixConfig.position.getX(), matrixConfig.position.getY());
+            Console.WriteLine("Pos Height:" + matrixConfig.position.getY() + " Width:" + matrixConfig.position.getX());
+            canvas.DrawBitmap(bitmap, matrixConfig.transform, paint);
+
+            /*try
+            {
+                paint.Color = Color.ParseColor ("#FF007F00");
+                canvas.DrawCircle(vca.getX(), vca.getY(), 64, paint);
+                paint.Color = Color.ParseColor("#FF7F0000");
+                canvas.DrawCircle(vcb.getX(), vcb.getY(), 64, paint);
+
+                paint.Color = Color.ParseColor("#FFFF0000");
+                canvas.DrawLine(vpa.getX(), vpa.getY(), vpb.getX(), vpb.getY(), paint);
+                paint.Color = Color.ParseColor("#FF00FF00");
+                canvas.DrawLine(vca.getX(), vca.getY(), vcb.getX(), vcb.getY(), paint);
             }
             catch (Exception e)
             {
                 // Just being lazy here...
-            }
+            }*/
         }
-
-
     }
 }
