@@ -23,7 +23,7 @@ using Android.Support.V7.App;
 namespace MTTrophy
 {
     [Activity(Theme = "@style/Theme.AppCompat.Light.NoActionBar", ScreenOrientation = ScreenOrientation.Unspecified, ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize | ConfigChanges.ScreenLayout, UiOptions = UiOptions.SplitActionBarWhenNarrow)]
-    public class TrophyCameraActivity : AppCompatActivity
+    public class TrophyCameraActivity : AppCompatActivity, ISensorEventListener
     {
         internal Matrix matrix = new Matrix();
         Preview mPreview;
@@ -50,6 +50,10 @@ namespace MTTrophy
 
         // The first rear facing camera
         int defaultCameraId;
+
+        SensorManager mSensorManager;
+        Sensor accSensor;
+        Sensor magnetSensor;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -135,6 +139,12 @@ namespace MTTrophy
                     defaultCameraId = i;
                 }
             }
+            mSensorManager = (SensorManager)GetSystemService(SensorService);
+            accSensor = mSensorManager.GetDefaultSensor(SensorType.Accelerometer);
+            //magnetSensor = mSensorManager.GetDefaultSensor(SensorType.MagneticField);
+
+            mSensorManager.RegisterListener(this, accSensor, SensorDelay.Normal);
+            //mSensorManager.RegisterListener(this, magnetSensor, SensorDelay.Normal);
         }
 
         internal async Task<Bitmap> ProcessImage(byte[] data, Android.Hardware.Camera camera)
@@ -228,6 +238,8 @@ namespace MTTrophy
                 mCamera.Release();
                 mCamera = null;
             }
+            mSensorManager.UnregisterListener(this, accSensor);
+            //mSensorManager.UnregisterListener(this, magnetSensor);
         }
 
         public static void SetCameraDisplayOrientation(Activity activity, int cameraId, Android.Hardware.Camera camera)
@@ -256,6 +268,76 @@ namespace MTTrophy
                 result = (info.Orientation - degrees + 360) % 360;
             }
             camera.SetDisplayOrientation(result);
+        }
+
+        public static int UPSIDE_DOWN = 3;
+        public static  int LANDSCAPE_RIGHT = 4;
+        public static  int PORTRAIT = 1;
+        public static  int LANDSCAPE_LEFT = 2;
+        public int mOrientationDeg; //last rotation in degrees
+        public int mOrientationRounded; //last orientation int from above 
+        private static  int _DATA_X = 0;
+        private static  int _DATA_Y = 1;
+        private static  int _DATA_Z = 2;
+        private int ORIENTATION_UNKNOWN = -1;
+        int tempOrientRounded = 0;
+        public void OnAccuracyChanged(Sensor sensor, [GeneratedEnum] SensorStatus accuracy)
+        {
+
+        }
+
+        public void OnSensorChanged(SensorEvent e)
+        {
+            Log.Debug("TROPHY", "Sensor Changed");
+            var values = e.Values;
+            int orientation = ORIENTATION_UNKNOWN;
+            float X = -values[_DATA_X];
+            float Y = -values[_DATA_Y];
+            float Z = -values[_DATA_Z];
+            float magnitude = X * X + Y * Y;
+            // Don't trust the angle if the magnitude is small compared to the y value
+            if (magnitude* 4 >= Z* Z) {
+                float OneEightyOverPi = 57.29577957855f;
+                float angle = (float)Java.Lang.Math.Atan2(-Y, X) * OneEightyOverPi;
+                orientation = 90 - (int)Java.Lang.Math.Round(angle);
+                // normalize to 0 - 359 range
+                while (orientation >= 360) {
+                    orientation -= 360;
+                } 
+                while (orientation< 0) {
+                    orientation += 360;
+                }
+            }
+            //^^ thanks to google for that code
+            //now we must figure out which orientation based on the degrees
+            Log.Debug("Oreination", ""+orientation);
+            if (orientation != mOrientationDeg) 
+            {
+                mOrientationDeg = orientation;
+                //figure out actual orientation
+                if(orientation == -1){//basically flat
+
+                }
+                else if(orientation <= 45 || orientation > 315){//round to 0
+                    tempOrientRounded = 1;//portrait
+                }
+                else if(orientation > 45 && orientation <= 135){//round to 90
+                    tempOrientRounded = 2; //lsleft
+                }
+                else if(orientation > 135 && orientation <= 225){//round to 180
+                    tempOrientRounded = 3; //upside down
+                }
+                else if(orientation > 225 && orientation <= 315){//round to 270
+                    tempOrientRounded = 4;//lsright
+                }
+
+            }
+
+            if(mOrientationRounded != tempOrientRounded){
+                    //Orientation changed, handle the change here
+                mOrientationRounded = tempOrientRounded;
+
+            }
         }
     }
 
