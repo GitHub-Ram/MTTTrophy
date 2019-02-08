@@ -85,25 +85,26 @@ namespace MTTrophy
 
                 int previewWidth = width;
                 int previewHeight = height;
-                if (mPreviewSize != null)
-                {
-                    previewWidth = mPreviewSize.Width;
-                    previewHeight = mPreviewSize.Height;
-                }
+                child.Layout(0, 0, width, height);
+                //if (mPreviewSize != null)
+                //{
+                //    previewWidth = mPreviewSize.Width;
+                //    previewHeight = mPreviewSize.Height;
+                //}
 
-                // Center the child SurfaceView within the parent.
-                if (width * previewHeight > height * previewWidth)
-                {
-                    int scaledChildWidth = previewWidth * height / previewHeight;
-                    child.Layout((width - scaledChildWidth) / 2, 0,
-                                 (width + scaledChildWidth) / 2, height);
-                }
-                else
-                {
-                    int scaledChildHeight = previewHeight * width / previewWidth;
-                    child.Layout(0, (height - scaledChildHeight) / 2,
-                                 width, (height + scaledChildHeight) / 2);
-                }
+                //// Center the child SurfaceView within the parent.
+                //if (width * previewHeight > height * previewWidth)
+                //{
+                //    int scaledChildWidth = previewWidth * height / previewHeight;
+                //    child.Layout((width - scaledChildWidth) / 2, 0,
+                //                 (width + scaledChildWidth) / 2, height);
+                //}
+                //else
+                //{
+                //    int scaledChildHeight = previewHeight * width / previewWidth;
+                //    child.Layout(0, (height - scaledChildHeight) / 2,
+                //                 width, (height + scaledChildHeight) / 2);
+                //}
             }
         }
 
@@ -130,6 +131,7 @@ namespace MTTrophy
             if (PreviewCamera != null)
             {
                 PreviewCamera.StopPreview();
+                _Context.previewing = false;
             }
         }
 
@@ -197,8 +199,31 @@ namespace MTTrophy
                 return;
             if (_Context.previewing)
             {
-                _camera.StopPreview();
-                _Context.previewing = false;
+                //_camera.StopPreview();
+                //_Context.previewing = false;
+                if (this.Resources.Configuration.Orientation != Android.Content.Res.Orientation.Landscape)
+                {
+                    _camera.SetDisplayOrientation(90);
+                    //Android.Hardware.Camera.Size cameraSize = _camera.GetParameters().PictureSize;
+                    //int wr = relativeLayout.Width;
+                    //int hr = relativeLayout.Height;
+                    //float ratio = relativeLayout.Width * 1f / cameraSize.Height;
+                    //w = cameraSize.Width * ratio;
+                    //h = cameraSize.Height * ratio;
+                    //RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams((int)h, (int)w);
+                    //cameraSurfaceView.LayoutParameters = (lp);
+                }
+                else
+                {
+                    _camera.SetDisplayOrientation(0);
+                    //Android.Hardware.Camera.Size cameraSize = camera.GetParameters().PictureSize;
+                    //float ratio = relativeLayout.Height * 1f / cameraSize.Height;
+                    //w = cameraSize.Width * ratio;
+                    //h = cameraSize.Height * ratio;
+                    //RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams((int)w, (int)h);
+                    //cameraSurfaceView.LayoutParameters = (lp);
+                }
+                return;
             }
             try
             {
@@ -233,7 +258,7 @@ namespace MTTrophy
                 parameters.SetPreviewSize(mPreviewSize.Width, mPreviewSize.Height);
                 RequestLayout();
 
-                PreviewCamera.SetParameters(parameters);
+                //PreviewCamera.SetParameters(parameters);
                 PreviewCamera.StartPreview();
                 _Context.previewing = true;
             }
