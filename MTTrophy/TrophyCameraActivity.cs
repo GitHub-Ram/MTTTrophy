@@ -22,7 +22,7 @@ using Android.Support.V7.App;
 
 namespace MTTrophy
 {
-    [Activity(Theme = "@style/Theme.AppCompat.Light.NoActionBar", ScreenOrientation = ScreenOrientation.Unspecified, ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize | ConfigChanges.ScreenLayout, UiOptions = UiOptions.SplitActionBarWhenNarrow)]
+    [Activity(Theme = "@style/Theme.AppCompat.Light.NoActionBar", ScreenOrientation = ScreenOrientation.Portrait, ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize | ConfigChanges.ScreenLayout, UiOptions = UiOptions.SplitActionBarWhenNarrow)]
     public class TrophyCameraActivity : AppCompatActivity, ISensorEventListener
     {
         internal Matrix matrix = new Matrix();
@@ -79,7 +79,8 @@ namespace MTTrophy
                     try{
                         bitmaptrophy = obj;
                         mCamera.TakePicture(null, null, mPreview);
-                    }catch(System.Exception ex){
+                    }
+                    catch (System.Exception ex){
                         trophyFragment.progressBarLL.Visibility = ViewStates.Gone;
                         System.Console.WriteLine("Take Picture Exception:"+ex.ToString());
                     }
@@ -124,6 +125,13 @@ namespace MTTrophy
                 {
                     System.Console.WriteLine("Exception Changeing Camera:" + exx.ToString());
                 }
+                Android.Hardware.Camera.Parameters parameters = mCamera.GetParameters();
+                parameters.SetPreviewSize(mPreview.mPreviewSize.Width, mPreview.mPreviewSize.Height);
+                System.Console.WriteLine("Param mPreviewSize.Width:" + mPreview.mPreviewSize.Width + " mPreviewSize.height:" + mPreview.mPreviewSize.Height);
+                parameters.SetPictureSize(mPreview.mPreviewSize.Width, mPreview.mPreviewSize.Height);
+                parameters.JpegQuality = (100);
+                parameters.PictureFormat = (ImageFormat.Jpeg);
+                mCamera.SetParameters(parameters);
                 mCamera.StartPreview();
             };
 
@@ -141,21 +149,43 @@ namespace MTTrophy
             }
             mSensorManager = (SensorManager)GetSystemService(SensorService);
             accSensor = mSensorManager.GetDefaultSensor(SensorType.Accelerometer);
-            //magnetSensor = mSensorManager.GetDefaultSensor(SensorType.MagneticField);
-
             mSensorManager.RegisterListener(this, accSensor, SensorDelay.Normal);
-            //mSensorManager.RegisterListener(this, magnetSensor, SensorDelay.Normal);
         }
 
-        internal async Task<Bitmap> ProcessImage(byte[] data, Android.Hardware.Camera camera)
+        internal Bitmap ProcessImage(byte[] data, Android.Hardware.Camera camera)
         {
             Bitmap newBitmap = null;
             try
             {
                 // TODO Auto-generated method stub
+                int orientation = Exif.GetExifOrientations(data);
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 //o.inJustDecodeBounds = true;
-                Bitmap cameraBitmapNull = BitmapFactory.DecodeByteArray(data, 0, data.Length, options);
+                Bitmap cameraBitmapNull = BitmapFactory.DecodeByteArray(data, 0, data.Length,options);
+                Bitmap bitmapPicture = null;
+                switch (orientation)
+                {
+                    case 90:
+                        bitmapPicture = RotateImage(cameraBitmapNull, 180);
+
+                        break;
+                    case 180:
+                        bitmapPicture = RotateImage(cameraBitmapNull, 270);
+
+                        break;
+                    case 270:
+                        bitmapPicture = RotateImage(cameraBitmapNull, 360);
+
+                        break;
+                    case 0:
+                        bitmapPicture = RotateImage(cameraBitmapNull, 90);
+                        break;
+                    // if orientation is zero we don't need to rotate this 
+
+                    default:
+                        break;
+                }
+                cameraBitmapNull = bitmapPicture;
 
                 int wid = options.OutWidth;
                 int hgt = options.OutHeight;
@@ -204,6 +234,13 @@ namespace MTTrophy
                 System.Console.WriteLine("ON PICTURE Ex:" + ex.ToString());
             }
             return newBitmap;
+        }
+
+        public static Bitmap RotateImage(Bitmap source, float angle)
+        {
+            Matrix matrix = new Matrix();
+            matrix.PostRotate(angle);
+            return Bitmap.CreateBitmap(source, 0, 0, source.Width, source.Height, matrix,true);
         }
 
         public override void OnBackPressed()
@@ -270,6 +307,56 @@ namespace MTTrophy
             camera.SetDisplayOrientation(result);
         }
 
+        internal Android.Hardware.Camera.Size GetOptimalPreviewSize(IList<Android.Hardware.Camera.Size> sizes, int w, int h)
+        {
+            double ASPECT_TOLERANCE = 0.1;
+            double targetRatio = (double)h / w;
+            if (Resources.Configuration.Orientation == Android.Content.Res.Orientation.Portrait)
+            {
+                targetRatio = (double)h / (double)w;
+            }
+            else if (Resources.Configuration.Orientation == Android.Content.Res.Orientation.Landscape)
+            {
+                targetRatio = (double)w / (double)h;
+            }
+
+            if (sizes == null)
+                return null;
+
+            Android.Hardware.Camera.Size optimalSize = null;
+            double minDiff = System.Double.MaxValue;
+
+            int targetHeight = h;
+
+            foreach (Android.Hardware.Camera.Size size in sizes)
+            {
+                double ratio = (double)size.Height / size.Width;
+                if (Java.Lang.Math.Abs(ratio - targetRatio) > ASPECT_TOLERANCE)
+                    continue;
+
+                if (Java.Lang.Math.Abs(size.Height - targetHeight) < minDiff)
+                {
+                    optimalSize = size;
+                    minDiff = Java.Lang.Math.Abs(size.Height - targetHeight);
+                }
+            }
+            if (optimalSize == null)
+            {
+                minDiff = Java.Lang.Double.MaxValue;
+                foreach (Android.Hardware.Camera.Size size in sizes)
+                {
+                    //Console.WriteLine("FIXED HEIGHT:"+size.Height+" WIDTH:"+size.Width);
+                    if (Java.Lang.Math.Abs(size.Height - targetHeight) < minDiff)
+                    {
+                        optimalSize = size;
+                        minDiff = Java.Lang.Math.Abs(size.Height - targetHeight);
+                    }
+                }
+            }
+            return optimalSize;
+        }
+
+
         public static int UPSIDE_DOWN = 3;
         public static  int LANDSCAPE_RIGHT = 4;
         public static  int PORTRAIT = 1;
@@ -280,15 +367,20 @@ namespace MTTrophy
         private static  int _DATA_Y = 1;
         private static  int _DATA_Z = 2;
         private int ORIENTATION_UNKNOWN = -1;
-        int tempOrientRounded = 0;
+        internal static int tempOrientRounded = 0;
         public void OnAccuracyChanged(Sensor sensor, [GeneratedEnum] SensorStatus accuracy)
         {
 
         }
 
+        static int neglectCount = 0;
         public void OnSensorChanged(SensorEvent e)
         {
             Log.Debug("TROPHY", "Sensor Changed");
+            neglectCount++;
+            if (neglectCount < 7)
+                return;
+            neglectCount = 0;
             var values = e.Values;
             int orientation = ORIENTATION_UNKNOWN;
             float X = -values[_DATA_X];
@@ -334,39 +426,45 @@ namespace MTTrophy
             }
 
             if(mOrientationRounded != tempOrientRounded){
-                    //Orientation changed, handle the change here
                 mOrientationRounded = tempOrientRounded;
-
+                int viewsIds = TrophyFragment.layoutManager.FindLastCompletelyVisibleItemPosition();
+                int angle = 0;
+                switch (TrophyCameraActivity.tempOrientRounded)
+                {
+                    case 1:
+                        trophyFragment.back.Rotation = trophyFragment.save.Rotation = trophyFragment.buttonFlipcamera.Rotation = trophyFragment.BackLobby.Rotation = trophyFragment.buttonRetake.Rotation = trophyFragment.BackLobby.Rotation = 0;
+                        angle = 0;
+                        break;
+                    case 2:
+                        trophyFragment.back.Rotation = trophyFragment.save.Rotation = trophyFragment.buttonFlipcamera.Rotation = trophyFragment.BackLobby.Rotation = trophyFragment.buttonRetake.Rotation = trophyFragment.BackLobby.Rotation = -90;
+                        angle = -90;
+                        break;
+                    case 3:
+                        trophyFragment.back.Rotation = trophyFragment.save.Rotation = trophyFragment.buttonFlipcamera.Rotation = trophyFragment.BackLobby.Rotation = trophyFragment.buttonRetake.Rotation = trophyFragment.BackLobby.Rotation = -180;
+                        angle = -180;
+                        break;
+                    case 4:
+                        trophyFragment.back.Rotation = trophyFragment.save.Rotation = trophyFragment.buttonFlipcamera.Rotation = trophyFragment.BackLobby.Rotation = trophyFragment.buttonRetake.Rotation = trophyFragment.BackLobby.Rotation = 90;
+                        angle = 90;
+                        break;
+                }
+                for (int i = 0; i <= viewsIds+1; i++)
+                {
+                    PhotoViewHolder firstViewHolder = (PhotoViewHolder)trophyFragment.mRecycleView.FindViewHolderForLayoutPosition(i);
+                    if(firstViewHolder!=null)
+                        firstViewHolder.imageView.Rotation = angle;
+                }
+                if (TrophyFragment.sandboxView != null)
+                {
+                    MatrixConfig matrixConfig = TrophyFragment.sandboxView.matrixConfig;
+                    System.Console.WriteLine("matrixConfig.angle:" + matrixConfig.angle + " angle:" + angle);
+                    if (System.Math.Abs(matrixConfig.angle - (float)angle) > 0)
+                    {
+                        matrixConfig.angle = (float)(angle * (System.Math.PI / 180));
+                        TrophyFragment.sandboxView.Invalidate();
+                    }
+                }
             }
-        }
-    }
-
-    class LinearSnapHelpers : LinearSnapHelper
-    {
-
-        public override int FindTargetSnapPosition(RecyclerView.LayoutManager layoutManager, int velocityX, int velocityY)
-        {
-            var ll = (layoutManager as RecyclerView.SmoothScroller.IScrollVectorProvider);
-            if (ll == null)
-            {
-                return RecyclerView.NoPosition;
-            }
-
-            View centerView = FindSnapView(layoutManager);
-
-            if (centerView == null)
-            {
-                return RecyclerView.NoPosition;
-            }
-
-            int currentPosition = layoutManager.GetPosition(centerView);
-
-            if (currentPosition == RecyclerView.NoPosition)
-            {
-                return RecyclerView.NoPosition;
-            }
-
-            return currentPosition;
         }
     }
 

@@ -95,6 +95,7 @@
     <Compile Include="TouchManager.cs" />
     <Compile Include="Vector2D.cs" />
     <Compile Include="Preview.cs" />
+    <Compile Include="Exif.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

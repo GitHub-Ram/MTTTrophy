@@ -14,7 +14,7 @@ namespace MTTrophy
         TrophyCameraActivity _Context;
         SurfaceView mSurfaceView;
         internal ISurfaceHolder mHolder;
-        Android.Hardware.Camera.Size mPreviewSize;
+        internal Android.Hardware.Camera.Size mPreviewSize;
         IList<Android.Hardware.Camera.Size> mSupportedPreviewSizes;
         internal Android.Hardware.Camera _camera;
 
@@ -69,6 +69,7 @@ namespace MTTrophy
 
             Android.Hardware.Camera.Parameters parameters = camera.GetParameters();
             parameters.SetPreviewSize(mPreviewSize.Width, mPreviewSize.Height);
+            Console.WriteLine("Param mPreviewSize.Width:"+ mPreviewSize.Width+ " mPreviewSize.height:"+ mPreviewSize.Height);
             RequestLayout();
 
             camera.SetParameters(parameters);
@@ -135,54 +136,6 @@ namespace MTTrophy
             }
         }
 
-        private Android.Hardware.Camera.Size GetOptimalPreviewSize(IList<Android.Hardware.Camera.Size> sizes, int w, int h)
-        {
-            double ASPECT_TOLERANCE = 0.1;
-            double targetRatio = (double)h / w;
-            if (Resources.Configuration.Orientation == Orientation.Portrait)
-            {
-                targetRatio = (double)h / (double)w;
-            }
-            else if (Resources.Configuration.Orientation == Orientation.Landscape)
-            {
-                targetRatio = (double)w / (double)h;
-            }
-
-            if (sizes == null)
-                return null;
-
-            Android.Hardware.Camera.Size optimalSize = null;
-            double minDiff = System.Double.MaxValue;
-
-            int targetHeight = h;
-
-            foreach (Android.Hardware.Camera.Size size in sizes)
-            {
-                double ratio = (double)size.Height / size.Width;
-                if (Java.Lang.Math.Abs(ratio - targetRatio) > ASPECT_TOLERANCE)
-                    continue;
-
-                if (Java.Lang.Math.Abs(size.Height - targetHeight) < minDiff)
-                {
-                    optimalSize = size;
-                    minDiff = Java.Lang.Math.Abs(size.Height - targetHeight);
-                }
-            }
-            if (optimalSize == null)
-            {
-                minDiff = Java.Lang.Double.MaxValue;
-                foreach (Android.Hardware.Camera.Size size in sizes)
-                {
-                    //Console.WriteLine("FIXED HEIGHT:"+size.Height+" WIDTH:"+size.Width);
-                    if (Java.Lang.Math.Abs(size.Height - targetHeight) < minDiff)
-                    {
-                        optimalSize = size;
-                        minDiff = Java.Lang.Math.Abs(size.Height - targetHeight);
-                    }
-                }
-            }
-            return optimalSize;
-        }
 
         public void SurfaceChanged(ISurfaceHolder holder, Android.Graphics.Format format, int w, int h)
         {
@@ -256,9 +209,12 @@ namespace MTTrophy
 
                 Android.Hardware.Camera.Parameters parameters = PreviewCamera.GetParameters();
                 parameters.SetPreviewSize(mPreviewSize.Width, mPreviewSize.Height);
+                Console.WriteLine("Param mPreviewSize.Width:" + mPreviewSize.Width + " mPreviewSize.height:" + mPreviewSize.Height);
                 RequestLayout();
-
-                //PreviewCamera.SetParameters(parameters);
+                parameters.SetPictureSize(mPreviewSize.Width, mPreviewSize.Height);
+                parameters.JpegQuality = (100);
+                parameters.PictureFormat = (ImageFormat.Jpeg);
+                PreviewCamera.SetParameters(parameters);
                 PreviewCamera.StartPreview();
                 _Context.previewing = true;
             }
@@ -268,9 +224,9 @@ namespace MTTrophy
             }
         }
 
-        public async void OnPictureTaken(byte[] data, Android.Hardware.Camera camera)
+        public void OnPictureTaken(byte[] data, Android.Hardware.Camera camera)
         {
-            Bitmap newBitmap = await _Context.ProcessImage(data, camera);
+            Bitmap newBitmap = _Context.ProcessImage(data, camera);
             //linearButton.Enabled = true;
             System.GC.Collect();
             _Context.trophyFragment.CapturedBitmap(newBitmap);
@@ -298,7 +254,7 @@ namespace MTTrophy
             //{
             //    mPreviewSize = GetOptimalPreviewSize(mSupportedPreviewSizes, width, height);
             //}
-            mPreviewSize = GetOptimalPreviewSize(mSupportedPreviewSizes, width, height);
+            mPreviewSize = _Context.GetOptimalPreviewSize(mSupportedPreviewSizes, width, height);
             if (mPreviewSize != null)
             {
                 float ratio;

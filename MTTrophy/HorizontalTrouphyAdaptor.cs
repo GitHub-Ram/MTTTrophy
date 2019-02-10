@@ -28,7 +28,6 @@ namespace MTTrophy
                 vh.imageView.SetImageResource(mPhotoAlbum[position].mPhotoID);
             else
                 vh.imageView.SetImageBitmap(mPhotoAlbum[position].bitmap);
-            //vh.linearLayout.SetBackgroundResource(Resource.Drawable.circle_background_trophy);
             if(mPhotoAlbum[position].mPhotoID!=0){
                 vh.imageView.SetBackgroundResource(Resource.Drawable.circle_background_trophy);
             }else{
@@ -37,10 +36,21 @@ namespace MTTrophy
             if(mPhotoAlbum[position].SelectedId != 0){
                 vh.imageView.SetBackgroundResource(Resource.Drawable.circle_background_trophy_clear);
             }
-            //if(mPhotoAlbum[position].SelectedId==1){
-            //    vh.linearLayout.SetBackgroundResource(Resource.Drawable.solid_circle_background_trophy);
-            //}
-            //vh.Caption.Text = mPhotoAlbum[position].mCaption;
+            switch (TrophyCameraActivity.tempOrientRounded)
+            {
+                case 1:
+                    vh.imageView.Rotation = 0;
+                    break;
+                case 2:
+                    vh.imageView.Rotation = -90;
+                    break;
+                case 3:
+                    vh.imageView.Rotation = -180;
+                    break;
+                case 4:
+                    vh.imageView.Rotation = 90;
+                    break;
+            }
         }
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
@@ -121,15 +131,6 @@ namespace MTTrophy
         public void PhotoAlbumUpdate(int offset)
         {
             this.offset = offset;
-
-            //foreach (Photo photo in listPhoto)
-            //{
-            //    if (photo.SelectedId != 0)
-            //    {
-            //        photo.SelectedId = 0;
-            //    }
-            //}
-
             Photo[] listPhotoOff = new Photo[offset];
             for (int i = 0; i < offset; i++){
                 listPhotoOff[i] = new Photo() { mPhotoID = 0, mCaption = "trophy 0", SelectedId = 0 };
@@ -177,25 +178,6 @@ namespace MTTrophy
                 Console.WriteLine("Height:" + bitmap.Height + " Width:" + bitmap.Width);
                 Canvas canvas = new Canvas(bitmap);
                 Console.WriteLine("Canvas Height:" + canvas.Height + " Width:" + canvas.Width);
-                // new antialised Paint
-                //Paint paint = new Paint(PaintFlags.AntiAlias);
-                //// text color - #3D3D3D
-                //paint.Color = Color.White;
-                //// text size in pixels
-                //paint.TextSize = ((int)(60 * scale));
-                //paint.SetTypeface(Typeface.Create(Typeface.DefaultBold, TypefaceStyle.Bold));
-                //// text shadow
-                //paint.SetShadowLayer(1f, 0f, 1f, Color.DarkKhaki);
-
-                //// draw text to the Canvas center
-                //Rect bounds = new Rect();
-                //paint.GetTextBounds(TrophyName, 0, TrophyName.Length, bounds);
-                //int x = (bitmap.Width - bounds.Width()) / 6;
-                //int y = (bitmap.Height + bounds.Height()) / 5;
-
-                //canvas.DrawText(TrophyName, photo.X, 110+photo.Y, paint);
-
-
                 TextPaint mTextPaint = new TextPaint(PaintFlags.AntiAlias);
                 mTextPaint.Color = Color.ParseColor(photo.Hex);
                 mTextPaint.SetTypeface(Typeface.Create(Typeface.DefaultBold, TypefaceStyle.Bold));
