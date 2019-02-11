@@ -224,6 +224,12 @@ namespace MTTrophy
                 bitmapToSave.Dispose();
                 bitmapToSave = null;
                 System.GC.Collect();
+                BackPressEvent(true);
+                Intent intent = new Intent();
+                intent.SetAction(Android.Content.Intent.ActionView);
+                intent.SetType("image/*");
+                intent.SetFlags(ActivityFlags.NewTask);
+                StartActivity(intent);
             };
 
             Dialog dialog = Dialog;

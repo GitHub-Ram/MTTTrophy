@@ -39,7 +39,7 @@ namespace MTTrophy
         private Button btnCapture = null;
         public int LastSelectedIndex = -1;
         Android.Hardware.CameraFacing currentCameraId = Android.Hardware.Camera.CameraInfo.CameraFacingBack;
-
+        internal static bool IsFrontCamera = false;
         Android.App.FragmentManager fmanager;
         internal TrophyFragment trophyFragment;
         public string TrophyName = string.Empty;
@@ -108,10 +108,12 @@ namespace MTTrophy
                 if (currentCameraId == Android.Hardware.Camera.CameraInfo.CameraFacingBack)
                 {
                     currentCameraId = Android.Hardware.Camera.CameraInfo.CameraFacingFront;
+                    IsFrontCamera = true;
                 }
                 else
                 {
                     currentCameraId = Android.Hardware.Camera.CameraInfo.CameraFacingBack;
+                    IsFrontCamera = false;
                 }
                 mCamera = Android.Hardware.Camera.Open((int)currentCameraId);
 
@@ -163,6 +165,7 @@ namespace MTTrophy
                 //o.inJustDecodeBounds = true;
                 Bitmap cameraBitmapNull = BitmapFactory.DecodeByteArray(data, 0, data.Length,options);
                 Bitmap bitmapPicture = null;
+                int extraangle = 180;
                 switch (orientation)
                 {
                     case 90:
@@ -185,8 +188,6 @@ namespace MTTrophy
                     default:
                         break;
                 }
-                cameraBitmapNull = bitmapPicture;
-
                 int wid = options.OutWidth;
                 int hgt = options.OutHeight;
                 Matrix nm = new Matrix();
@@ -195,8 +196,8 @@ namespace MTTrophy
                 float ratio = mPreview.Height * 1f / cameraSize.Height;
                 if (Resources.Configuration.Orientation != Android.Content.Res.Orientation.Landscape)
                 {
-                    nm.PostRotate(90);
-                    nm.PostTranslate(hgt, 0);
+                    //nm.PostRotate(90);
+                    //nm.PostTranslate(hgt, 0);
                     wid = options.OutHeight;
                     hgt = options.OutWidth;
                     ratio = mPreview.Width * 1f / cameraSize.Height;
@@ -221,9 +222,9 @@ namespace MTTrophy
                 newBitmap = Bitmap.CreateBitmap(wid, hgt, Bitmap.Config.Argb8888);
 
                 Canvas canvas = new Canvas(newBitmap);
-                Bitmap cameraBitmap = BitmapFactory.DecodeByteArray(data, 0, data.Length, options);
+                //Bitmap cameraBitmap = BitmapFactory.DecodeByteArray(data, 0, data.Length, options);
 
-                canvas.DrawBitmap(cameraBitmap, nm, null);
+                canvas.DrawBitmap(bitmapPicture, nm, null);
 
 
                 canvas.DrawBitmap(bitmaptrophy, matrix, null);
@@ -239,7 +240,7 @@ namespace MTTrophy
         public static Bitmap RotateImage(Bitmap source, float angle)
         {
             Matrix matrix = new Matrix();
-            matrix.PostRotate(angle);
+            matrix.PostRotate(IsFrontCamera?180+angle:angle);
             return Bitmap.CreateBitmap(source, 0, 0, source.Width, source.Height, matrix,true);
         }
 
