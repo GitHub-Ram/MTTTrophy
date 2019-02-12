@@ -115,6 +115,7 @@ namespace MTTrophy
                     currentCameraId = Android.Hardware.Camera.CameraInfo.CameraFacingBack;
                     IsFrontCamera = false;
                 }
+
                 mCamera = Android.Hardware.Camera.Open((int)currentCameraId);
 
                 SetCameraDisplayOrientation(this, (int)currentCameraId, mCamera);
@@ -127,14 +128,22 @@ namespace MTTrophy
                 {
                     System.Console.WriteLine("Exception Changeing Camera:" + exx.ToString());
                 }
-                Android.Hardware.Camera.Parameters parameters = mCamera.GetParameters();
-                parameters.SetPreviewSize(mPreview.mPreviewSize.Width, mPreview.mPreviewSize.Height);
-                System.Console.WriteLine("Param mPreviewSize.Width:" + mPreview.mPreviewSize.Width + " mPreviewSize.height:" + mPreview.mPreviewSize.Height);
-                parameters.SetPictureSize(mPreview.mPreviewSize.Width, mPreview.mPreviewSize.Height);
-                parameters.JpegQuality = (100);
-                parameters.PictureFormat = (ImageFormat.Jpeg);
-                mCamera.SetParameters(parameters);
-                mCamera.StartPreview();
+                //Android.Hardware.Camera.Parameters parameters = mCamera.GetParameters();
+                //parameters.SetPreviewSize(mPreview.mPreviewSize.Width, mPreview.mPreviewSize.Height);
+                //System.Console.WriteLine("Param mPreviewSize.Width:" + mPreview.mPreviewSize.Width + " mPreviewSize.height:" + mPreview.mPreviewSize.Height);
+                //parameters.SetPictureSize(mPreview.mPreviewSize.Width, mPreview.mPreviewSize.Height);
+                //parameters.JpegQuality = (100);
+                //parameters.PictureFormat = (ImageFormat.Jpeg);
+                //parameters.FocusMode = Android.Hardware.Camera.Parameters.FocusModeAuto;
+                //if (parameters.IsZoomSupported)
+                //    parameters.Zoom = (0);
+                //mCamera.SetParameters(parameters);
+                //mCamera.StartPreview();
+                previewing = false;
+                mPreview.Dispose();
+                mPreview = new Preview(this);
+                SetContentView(mPreview);
+                mPreview.PreviewCamera = mCamera;
             };
 
             numberOfCameras = Android.Hardware.Camera.NumberOfCameras;
@@ -241,7 +250,14 @@ namespace MTTrophy
         {
             Matrix matrix = new Matrix();
             matrix.PostRotate(IsFrontCamera?180+angle:angle);
-            return Bitmap.CreateBitmap(source, 0, 0, source.Width, source.Height, matrix,true);
+            var result = Bitmap.CreateBitmap(source, 0, 0, source.Width, source.Height, matrix, true);
+            if (IsFrontCamera)
+            {
+                matrix = new Matrix();
+                matrix.SetValues(new float[] { -1, 0, 0, 0, 1, 0, 0, 0, 1 });
+                result = Bitmap.CreateBitmap(result, 0, 0, result.Width, result.Height, matrix, true);
+            }
+            return result;
         }
 
         public override void OnBackPressed()
@@ -255,8 +271,9 @@ namespace MTTrophy
         protected override void OnResume()
         {
             base.OnResume();
-            mCamera = Android.Hardware.Camera.Open();
             cameraCurrentlyLocked = defaultCameraId;
+            mCamera = Android.Hardware.Camera.Open(defaultCameraId);
+
             mPreview.PreviewCamera = mCamera;
         }
 
@@ -308,7 +325,82 @@ namespace MTTrophy
             camera.SetDisplayOrientation(result);
         }
 
-        internal Android.Hardware.Camera.Size GetOptimalPreviewSize(IList<Android.Hardware.Camera.Size> sizes, int w, int h)
+        internal Android.Hardware.Camera.Size GetOptimalPreviewSize(IList<Android.Hardware.Camera.Size> sizes)
+        {
+            const double ASPECT_TOLERANCE = 0.05;
+            string TAG = "GetOptimalPreviewSize";
+            if (sizes == null)
+                return null;
+
+            Android.Hardware.Camera.Size optimalSize = null;
+            double minDiff = System.Double.MaxValue;
+            Point display_size = new Point();
+            //AppCompatActivity activity = (AppCompatActivity)this.BaseContext;
+            {
+                Display display = this.WindowManager.DefaultDisplay;
+                display.GetSize(display_size);
+
+                Log.Debug(TAG, "display_size: " + display_size.X + " x " + display_size.Y);
+            }
+            double targetRatio = CalculateTargetRatioForPreview(display_size);
+            int targetHeight = System.Math.Min(display_size.Y, display_size.X);
+            if (targetHeight <= 0)
+            {
+                targetHeight = display_size.Y;
+            }
+            // Try to find the size which matches the aspect ratio, and is closest match to display height
+            foreach (Android.Hardware.Camera.Size size in sizes)
+            {
+                Log.Debug(TAG, "    supported preview size: " + size.Width + ", " + size.Height);
+                double ratio = (double)size.Width / size.Height;
+                if (System.Math.Abs(ratio - targetRatio) > ASPECT_TOLERANCE)
+                    continue;
+                if (System.Math.Abs(size.Height - targetHeight) < minDiff)
+                {
+                    optimalSize = size;
+                    minDiff = System.Math.Abs(size.Height - targetHeight);
+                }
+            }
+            if (optimalSize == null)
+            {
+                // can't find match for aspect ratio, so find closest one
+                Log.Debug(TAG, "no preview size matches the aspect ratio");
+                optimalSize = GetClosestSize(sizes, targetRatio);
+            }
+            optimalSize = sizes[0];
+
+            Log.Debug(TAG, "chose optimalSize: " + optimalSize.Width + " x " + optimalSize.Height);
+            Log.Debug(TAG, "optimalSize ratio: " + ((double)optimalSize.Width / optimalSize.Height));
+            return optimalSize;
+        }
+
+        public Android.Hardware.Camera.Size GetClosestSize(IList<Android.Hardware.Camera.Size> sizes,double targetRatio)
+        {
+            Log.Debug("GetClosestSize", "getClosestSize()");
+            Android.Hardware.Camera.Size optimalSize = null;
+            double minDiff = System.Double.MaxValue;
+            foreach (Android.Hardware.Camera.Size size in sizes)
+            {
+                double ratio = (double)size.Width / size.Height;
+                if (System.Math.Abs(ratio - targetRatio) < minDiff)
+                {
+                    optimalSize = size;
+                    minDiff = System.Math.Abs(ratio - targetRatio);
+                }
+            }
+            return optimalSize;
+        }
+
+        private double CalculateTargetRatioForPreview(Point display_size)
+        {
+            double targetRatio = 0.0f;
+
+                targetRatio = ((double)mCamera.GetParameters().PictureSize.Width) / (double)mCamera.GetParameters().PictureSize.Height;
+                //targetRatio = ((double)display_size.x) / (double)display_size.y;
+            return targetRatio;
+        }
+
+        internal Android.Hardware.Camera.Size GetOptimalPreviewSizeNotinUse(IList<Android.Hardware.Camera.Size> sizes, int w, int h)
         {
             double ASPECT_TOLERANCE = 0.1;
             double targetRatio = (double)h / w;

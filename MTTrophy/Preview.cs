@@ -15,7 +15,7 @@ namespace MTTrophy
         SurfaceView mSurfaceView;
         internal ISurfaceHolder mHolder;
         internal Android.Hardware.Camera.Size mPreviewSize;
-        IList<Android.Hardware.Camera.Size> mSupportedPreviewSizes;
+        internal IList<Android.Hardware.Camera.Size> mSupportedPreviewSizes;
         internal Android.Hardware.Camera _camera;
 
         public Android.Hardware.Camera PreviewCamera
@@ -34,6 +34,11 @@ namespace MTTrophy
                     RequestLayout();
                 }
             }
+        }
+
+        public Preview(System.IntPtr intPtr, Android.Runtime.JniHandleOwnership ownership): base(intPtr, ownership)
+        {
+
         }
 
         public Preview(TrophyCameraActivity context) : base(context.ApplicationContext)
@@ -87,6 +92,7 @@ namespace MTTrophy
                 int previewWidth = width;
                 int previewHeight = height;
                 child.Layout(0, 0, width, height);
+
                 //if (mPreviewSize != null)
                 //{
                 //    previewWidth = mPreviewSize.Width;
@@ -214,7 +220,13 @@ namespace MTTrophy
                 parameters.SetPictureSize(mPreviewSize.Width, mPreviewSize.Height);
                 parameters.JpegQuality = (100);
                 parameters.PictureFormat = (ImageFormat.Jpeg);
+
+
+
                 PreviewCamera.SetParameters(parameters);
+                PreviewCamera.GetParameters().FocusMode = Android.Hardware.Camera.Parameters.FocusModeAuto;
+                if (PreviewCamera.GetParameters().IsZoomSupported)
+                    PreviewCamera.GetParameters().Zoom = (0);
                 PreviewCamera.StartPreview();
                 _Context.previewing = true;
             }
@@ -234,6 +246,23 @@ namespace MTTrophy
 
         protected override void OnMeasure(int widthMeasureSpec, int heightMeasureSpec)
         {
+            int width = ResolveSize(SuggestedMinimumWidth, widthMeasureSpec);
+            int height = ResolveSize(SuggestedMinimumHeight, heightMeasureSpec);
+            if (mSupportedPreviewSizes != null)
+            {
+                mPreviewSize = _Context.GetOptimalPreviewSize(mSupportedPreviewSizes);
+            }
+
+            float ratio;
+            if (mPreviewSize.Height >= mPreviewSize.Width)
+                ratio = (float)mPreviewSize.Height / (float)mPreviewSize.Width;
+            else
+                ratio = (float)mPreviewSize.Width / (float)mPreviewSize.Height;
+
+            // One of these methods should be used, second method squishes preview slightly
+            SetMeasuredDimension(width, (int)(width * ratio));
+
+            return;
             // We purposely disregard child measurements because act as a
             // wrapper to a SurfaceView that centers the camera preview instead
             // of stretching it.
@@ -246,48 +275,49 @@ namespace MTTrophy
             //    mPreviewSize = GetOptimalPreviewSize(mSupportedPreviewSizes, width, height);
             //}
 
-            int width = ResolveSize(SuggestedMinimumWidth, widthMeasureSpec);
-            int height = ResolveSize(SuggestedMinimumHeight, heightMeasureSpec);
+            //int width = ResolveSize(SuggestedMinimumWidth, widthMeasureSpec);
+            //int height = ResolveSize(SuggestedMinimumHeight, heightMeasureSpec);
             //SetMeasuredDimension(width, height);
 
             //if (mSupportedPreviewSizes != null)
             //{
             //    mPreviewSize = GetOptimalPreviewSize(mSupportedPreviewSizes, width, height);
             //}
-            mPreviewSize = _Context.GetOptimalPreviewSize(mSupportedPreviewSizes, width, height);
+            mPreviewSize = _Context.GetOptimalPreviewSize(mSupportedPreviewSizes);
             if (mPreviewSize != null)
             {
-                float ratio;
-                if (mPreviewSize.Height >= mPreviewSize.Width)
-                    ratio = (float)mPreviewSize.Height / (float)mPreviewSize.Width;
-                else
-                    ratio = (float)mPreviewSize.Width / (float)mPreviewSize.Height;
+                SetMeasuredDimension(width, height);
+                //float ratio;
+                //if (mPreviewSize.Height >= mPreviewSize.Width)
+                //    ratio = (float)mPreviewSize.Height / (float)mPreviewSize.Width;
+                //else
+                //    ratio = (float)mPreviewSize.Width / (float)mPreviewSize.Height;
 
-                // One of these methods should be used, second method squishes preview slightly
-                //SetMeasuredDimension(width, (int)(width * ratio));
-                //        setMeasuredDimension((int) (width * ratio), height);
-                float camHeight = (int)(width * ratio);
-                float newCamHeight;
-                float newHeightRatio;
+                //// One of these methods should be used, second method squishes preview slightly
+                ////SetMeasuredDimension(width, (int)(width * ratio));
+                ////        setMeasuredDimension((int) (width * ratio), height);
+                //float camHeight = (int)(width * ratio);
+                //float newCamHeight;
+                //float newHeightRatio;
 
-                if (camHeight < height)
-                {
-                    newHeightRatio = (float)height / (float)mPreviewSize.Height;
-                    newCamHeight = (newHeightRatio * camHeight);
-                    System.Console.WriteLine(camHeight + " " + height + " " + mPreviewSize.Height + " " + newHeightRatio + " " + newCamHeight);
-                    SetMeasuredDimension((int)(width * newHeightRatio), (int)newCamHeight);
-                    //System.Console.WriteLine(mPreviewSize.Width + " | " + mPreviewSize.Height + " | ratio - " + ratio + " | H_ratio - " + newHeightRatio + " | A_width - " + (width * newHeightRatio) + " | A_height - " + newCamHeight);
-                    //mPreviewSize.Width = (int)(width * newHeightRatio);
-                    //mPreviewSize.Height = (int)newCamHeight;
-                }
-                else
-                {
-                    newCamHeight = camHeight;
-                    SetMeasuredDimension(width, (int)newCamHeight);
-                    //System.Console.WriteLine(mPreviewSize.Width + " | " + mPreviewSize.Height + " | ratio - " + ratio + " | A_width - " + (width) + " | A_height - " + newCamHeight);
-                    //mPreviewSize.Width = width;
-                    //mPreviewSize.Height = (int)newCamHeight;
-                }
+                //if (camHeight < height)
+                //{
+                //    newHeightRatio = (float)height / (float)mPreviewSize.Height;
+                //    newCamHeight = (newHeightRatio * camHeight);
+                //    System.Console.WriteLine(camHeight + " " + height + " " + mPreviewSize.Height + " " + newHeightRatio + " " + newCamHeight);
+                //    SetMeasuredDimension((int)(width * newHeightRatio), (int)newCamHeight);
+                //    //System.Console.WriteLine(mPreviewSize.Width + " | " + mPreviewSize.Height + " | ratio - " + ratio + " | H_ratio - " + newHeightRatio + " | A_width - " + (width * newHeightRatio) + " | A_height - " + newCamHeight);
+                //    //mPreviewSize.Width = (int)(width * newHeightRatio);
+                //    //mPreviewSize.Height = (int)newCamHeight;
+                //}
+                //else
+                //{
+                //    newCamHeight = camHeight;
+                //    SetMeasuredDimension(width, (int)newCamHeight);
+                //    //System.Console.WriteLine(mPreviewSize.Width + " | " + mPreviewSize.Height + " | ratio - " + ratio + " | A_width - " + (width) + " | A_height - " + newCamHeight);
+                //    //mPreviewSize.Width = width;
+                //    //mPreviewSize.Height = (int)newCamHeight;
+                //}
 
             }
         }
