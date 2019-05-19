@@ -80,23 +80,25 @@ namespace MTTrophy
             return frag;
         }
 
-        public override Dialog OnCreateDialog(Bundle savedInstanceState)
-        {
-            RelativeLayout root = new RelativeLayout(context);
-            root.LayoutParameters = (new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
-            DialogCustom dialog = new DialogCustom(this);
-            dialog.RequestWindowFeature((int)WindowFeatures.NoTitle);
-            dialog.SetContentView(root);
-            dialog.Window.SetBackgroundDrawable(new ColorDrawable(Color.Transparent));
-            dialog.Window.SetFlags(WindowManagerFlags.Fullscreen, WindowManagerFlags.Fullscreen);
-            dialog.Window.SetLayout(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
-            return dialog;
-        }
+        //public override Dialog OnCreateDialog(Bundle savedInstanceState)
+        //{
+        //    RelativeLayout root = new RelativeLayout(context);
+        //    root.LayoutParameters = (new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
+        //    DialogCustom dialog = new DialogCustom(this);
+        //    dialog.RequestWindowFeature((int)WindowFeatures.NoTitle);
+        //    dialog.SetContentView(root);
+        //    dialog.Window.SetBackgroundDrawable(new ColorDrawable(Color.Transparent));
+        //    dialog.Window.SetFlags(WindowManagerFlags.Fullscreen, WindowManagerFlags.Fullscreen);
+        //    dialog.Window.SetLayout(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
+        //    return dialog;
+        //}
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            SetStyle(DialogFragmentStyle.Normal, Android.Resource.Style.ThemeTranslucentNoTitleBarFullScreen);
+            //SetStyle(DialogFragmentStyle.Normal, Android.Resource.Style.ThemeDeviceDefaultLightNoActionBarFullscreen);
             Dialog.Window.SetBackgroundDrawable(new ColorDrawable(Color.Transparent));
+            Dialog.Window.ClearFlags(WindowManagerFlags.DimBehind);
+            Dialog.Window.SetFlags(WindowManagerFlags.Fullscreen, WindowManagerFlags.Fullscreen);
             var view = inflater.Inflate(Resource.Layout.trophy_fragment, container);
             view.SetBackgroundColor(Color.Transparent);
             return view;
@@ -140,6 +142,13 @@ namespace MTTrophy
         public override void OnStart()
         {
             base.OnStart();
+            //Dialog dialog = Dialog;
+            //if (dialog != null)
+            //{
+            //    int width = ViewGroup.LayoutParams.MatchParent;
+            //    int height = ViewGroup.LayoutParams.MatchParent;
+            //    dialog.Window.SetLayout(width, height);
+            //}
         }
 
         public override void OnViewCreated(View view, Bundle savedInstanceState)
@@ -224,12 +233,6 @@ namespace MTTrophy
                 bitmapToSave.Dispose();
                 bitmapToSave = null;
                 System.GC.Collect();
-                BackPressEvent(true);
-                Intent intent = new Intent();
-                intent.SetAction(Android.Content.Intent.ActionView);
-                intent.SetType("image/*");
-                intent.SetFlags(ActivityFlags.NewTask);
-                StartActivity(intent);
             };
 
             Dialog dialog = Dialog;

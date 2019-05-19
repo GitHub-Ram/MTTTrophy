@@ -1,5 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
   
-  
+  <style name="AppThemeActivity" parent="Theme.AppCompat.Light.NoActionBar">
+       <item name="android:colorPrimary">#FFFFFF00</item>
+       <item name="android:colorPrimaryDark">#FFFFFF00</item>
+       <item name="android:textColorPrimary">#FFFFFF00</item>
+       <item name="colorAccent">#FFFFFF00</item>
+        <item name="colorPrimaryDark">#fad</item>
+       <!-- darker variant for the status bar and contextual app bars -->
+       
+       <item name="android:navigationBarColor">#FFFFFF00</item>
+       <item name="android:statusBarColor">#FFFFFF00</item>
+<item name="android:windowActionBar">false</item>
+<item name="android:windowDrawsSystemBarBackgrounds">true</item>
+</style>
+    
+    <style name="AppThemepp" parent="Theme.AppCompat.Light.NoActionBar">
+       <item name="android:navigationBarColor">#000000</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">#000000</item>
+    </style>
 </resources>

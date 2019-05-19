@@ -4165,6 +4165,12 @@ namespace MTTrophy
 			// aapt resource value: 0x7f090099
 			public const int Animation_AppCompat_Tooltip = 2131296409;
 			
+			// aapt resource value: 0x7f090162
+			public const int AppThemeActivity = 2131296610;
+			
+			// aapt resource value: 0x7f090163
+			public const int AppThemepp = 2131296611;
+			
 			// aapt resource value: 0x7f09009a
 			public const int Base_AlertDialog_AppCompat = 2131296410;
 			
@@ -4897,8 +4903,8 @@ namespace MTTrophy
 			// aapt resource value: 0x7f090159
 			public const int TextAppearance_Compat_Notification_Title_Media = 2131296601;
 			
-			// aapt resource value: 0x7f090168
-			public const int TextAppearance_TabPageIndicator = 2131296616;
+			// aapt resource value: 0x7f09016a
+			public const int TextAppearance_TabPageIndicator = 2131296618;
 			
 			// aapt resource value: 0x7f0900f6
 			public const int TextAppearance_Widget_AppCompat_ExpandedMenu_Item = 2131296502;
@@ -4972,8 +4978,8 @@ namespace MTTrophy
 			// aapt resource value: 0x7f090106
 			public const int Theme_AppCompat_NoActionBar = 2131296518;
 			
-			// aapt resource value: 0x7f090162
-			public const int Theme_PageIndicatorDefaults = 2131296610;
+			// aapt resource value: 0x7f090164
+			public const int Theme_PageIndicatorDefaults = 2131296612;
 			
 			// aapt resource value: 0x7f090107
 			public const int ThemeOverlay_AppCompat = 2131296519;
@@ -4996,8 +5002,8 @@ namespace MTTrophy
 			// aapt resource value: 0x7f09010d
 			public const int ThemeOverlay_AppCompat_Light = 2131296525;
 			
-			// aapt resource value: 0x7f090163
-			public const int Widget = 2131296611;
+			// aapt resource value: 0x7f090165
+			public const int Widget = 2131296613;
 			
 			// aapt resource value: 0x7f09010e
 			public const int Widget_AppCompat_ActionBar = 2131296526;
@@ -5215,8 +5221,8 @@ namespace MTTrophy
 			// aapt resource value: 0x7f090155
 			public const int Widget_AppCompat_Toolbar_Button_Navigation = 2131296597;
 			
-			// aapt resource value: 0x7f090164
-			public const int Widget_CirclePageIndicator = 2131296612;
+			// aapt resource value: 0x7f090166
+			public const int Widget_CirclePageIndicator = 2131296614;
 			
 			// aapt resource value: 0x7f09015f
 			public const int Widget_Compat_NotificationActionContainer = 2131296607;
@@ -5224,14 +5230,14 @@ namespace MTTrophy
 			// aapt resource value: 0x7f090160
 			public const int Widget_Compat_NotificationActionText = 2131296608;
 			
-			// aapt resource value: 0x7f090166
-			public const int Widget_TabPageIndicator = 2131296614;
+			// aapt resource value: 0x7f090168
+			public const int Widget_TabPageIndicator = 2131296616;
+			
+			// aapt resource value: 0x7f090169
+			public const int Widget_TabPageIndicator_Text = 2131296617;
 			
 			// aapt resource value: 0x7f090167
-			public const int Widget_TabPageIndicator_Text = 2131296615;
-			
-			// aapt resource value: 0x7f090165
-			public const int Widget_TitlePageIndicator = 2131296613;
+			public const int Widget_TitlePageIndicator = 2131296615;
 			
 			static Style()
 			{

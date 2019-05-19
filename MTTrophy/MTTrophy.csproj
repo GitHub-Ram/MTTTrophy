@@ -165,9 +165,11 @@
     <AndroidResource Include="Resources\mipmap-xhdpi\rowEven.png" />
     <AndroidResource Include="Resources\mipmap-xhdpi\rowOdd.png" />
     <AndroidResource Include="Resources\drawable\solid_circle_background_trophy.xml" />
+    <AndroidResource Include="Resources\values-v21\styles.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
+    <Folder Include="Resources\values-v21\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\fonts\AvantiProB_0.otf" />

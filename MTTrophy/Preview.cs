@@ -5,6 +5,7 @@ using Android.Graphics;
 using Android.OS;
 using Android.Util;
 using Android.Views;
+using Android.Widget;
 
 namespace MTTrophy
 {
@@ -45,10 +46,9 @@ namespace MTTrophy
         {
             _Context = context;
             mSurfaceView = new SurfaceView(context);
-            //RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
-            //mSurfaceView.LayoutParameters = lp;
-            AddView(mSurfaceView);
 
+            AddView(mSurfaceView);
+            SetBackgroundColor(Color.Red);
             // Install a SurfaceHolder.Callback so we get notified when the
             // underlying surface is created and destroyed.
             mHolder = mSurfaceView.Holder;
@@ -153,7 +153,10 @@ namespace MTTrophy
 
             //PreviewCamera.SetParameters(parameters);
             //PreviewCamera.StartPreview();
-
+            //if (mSupportedPreviewSizes != null)
+            //{
+            //    mPreviewSize = _Context.GetOptimalPreviewSize(mSupportedPreviewSizes);
+            //}
             if (_camera == null)
                 return;
             if (_Context.previewing)
@@ -174,6 +177,7 @@ namespace MTTrophy
                 }
                 else
                 {
+
                     _camera.SetDisplayOrientation(0);
                     //Android.Hardware.Camera.Size cameraSize = camera.GetParameters().PictureSize;
                     //float ratio = relativeLayout.Height * 1f / cameraSize.Height;

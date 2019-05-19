@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace MTTrophy
 {
-    [Activity(Theme = "@android:style/Theme.NoTitleBar",Label = "TrophyList")]
+    [Activity(Theme = "@style/AppThemeActivity", Label = "TrophyList")]
     public class TrophyList : Activity
     {
         ListView trophyList;
