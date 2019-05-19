@@ -71,7 +71,7 @@ namespace MTTrophy
                 }
 
                 trophyFragment = TrophyFragment.newInstance(TrophyName, this);
-                trophyFragment.SetStyle(DialogFragmentStyle.Normal, Resource.Style.AppThemepp);
+                //trophyFragment.SetStyle(DialogFragmentStyle.Normal, Resource.Style.AppThemepp);
                 trophyFragment.Show(fmanager, "fragment_edit_name");
                 trophyFragment.Cancelable = false;
                 trophyFragment.OnCAptureClick += (Bitmap obj, LinearLayout linearButton) => {

@@ -80,18 +80,13 @@ namespace MTTrophy
             return frag;
         }
 
-        //public override Dialog OnCreateDialog(Bundle savedInstanceState)
-        //{
-        //    RelativeLayout root = new RelativeLayout(context);
-        //    root.LayoutParameters = (new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent));
-        //    DialogCustom dialog = new DialogCustom(this);
-        //    dialog.RequestWindowFeature((int)WindowFeatures.NoTitle);
-        //    dialog.SetContentView(root);
-        //    dialog.Window.SetBackgroundDrawable(new ColorDrawable(Color.Transparent));
-        //    dialog.Window.SetFlags(WindowManagerFlags.Fullscreen, WindowManagerFlags.Fullscreen);
-        //    dialog.Window.SetLayout(ViewGroup.LayoutParams.MatchParent, ViewGroup.LayoutParams.MatchParent);
-        //    return dialog;
-        //}
+        public override Dialog OnCreateDialog(Bundle savedInstanceState)
+        {
+
+            DialogCustom dialog = new DialogCustom(this,Theme);
+
+            return dialog;
+        }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -209,7 +204,7 @@ namespace MTTrophy
                 if(matrixConfig==null){
                     matrixConfig = new MatrixConfig();
                 }
-                containerImg.AddView(new SandboxView(Context, bitmap,matrixConfig));
+                containerImg.AddView(new SandboxView(context, bitmap,matrixConfig));
             };
 
             back.Click += delegate
@@ -288,7 +283,7 @@ namespace MTTrophy
                         {
                             matrixConfig = new MatrixConfig();
                         }
-                        sandboxView = new SandboxView(Context, bitmap, matrixConfig);
+                        sandboxView = new SandboxView(context, bitmap, matrixConfig);
                         containerImg.AddView(sandboxView);
                     }
                 };
@@ -435,7 +430,7 @@ namespace MTTrophy
     public class DialogCustom : Dialog
     {
         TrophyFragment trophyFragment;
-        public DialogCustom(TrophyFragment trophyFragment) : base(trophyFragment.context)
+        public DialogCustom(TrophyFragment trophyFragment, DialogFragmentStyle theme) : base(trophyFragment.context, Resource.Style.AppThemepp)
         {
             this.trophyFragment = trophyFragment;
         }
